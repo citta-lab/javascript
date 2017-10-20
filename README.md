@@ -78,7 +78,7 @@ without alerting the array we were able to reduce the array for desired result.
 
 2.2 Filter
 
-Similarly we can use filter on an array to get the desired value.
+Similarly we can use filter on an array to get the desired value. The syntax of the filter is `array.filter( (eachElementofanArray) => { return eachElementofanArray.value <condition> checkValue })`. Where `<condition>` can be `===`,`<=`,`>` any of the operator and checkValue will be value condition. See the below example for details, 
 ```javascript
 //aaray data
 array = [
