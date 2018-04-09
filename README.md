@@ -6,7 +6,9 @@ playground: https://jscomplete.com/repl/
 ### Pointers:
 1. Inline if-else is to use conditional operator `condition ? true : false`.
 2. In JavaScript, `true && expression` always evaluates to `expression`, and `false && expression` always evaluates to `false`. Example: ` check == 20 && check-1`, if check is equal to 20 then we will deduct one from it.
-3. 
+3. `var` is variable and can be changed where as `const` is like final in java. since `ES6` we use `let` instead of `var` which has smaller scope than the variable.
+4. We explicitly need to define `export` and `import` in javascript. We can also do explicit import by named import example `import {calAge} from './fileName.js'` which ignores all the export definition from fileName and only imports `calAge`.
+5. Use `toFixed(2)` to convert floating number into two digit value. Example: `3.232444` will be printed as `3.23`.
 
 
 
@@ -125,6 +127,23 @@ var final = check.reduce((accumulatedValue, eachValue) => {
 },0)
 console.log(final)
 ```
+3. Arrow Function:
+Arrow functions are replacement of normal functions which also solves the problem of `this` in javascript. If we use `this` inside the arrow function then it will always be in the context. Simple example of normal vs arrow function is.
+```javascript
+// normal function
+function calAge(number){
+  return number * 2;
+}
+// arrow function
+const calAge = (number) => {
+  return number *2;
+}
+```
+In both scenario we can call the function by `calAge(12);`. However this is further can be rewritten in single line using arrow function as const `const calAge = (number) => number * 2;` or `const calAge = number => number *2;`.
+
+
+
+
 
 
 Tricks:
@@ -185,3 +204,11 @@ var value = array.splice(0,2)
 console.log(" third time : "+value) //Jill
 ```
 The value of the result does change for the same passed arguments. This is one example for impure function.
+
+### Storage
+
+Typically almost all browsers are provided with storage options to cache your data in the browser. There are mainly two types of storage apart from `Cookies`, i.e `localStorage` and `sessionStorage`. The main difference between them are `localStorage` is persisted so the data will be saved if we close and re-open the browser and where as `sessionStorage` will be thrown away once the browser is closed. As you might have guessed they are independent of each other and we can use either one or both depending on the requirement.
+  In `Chrome 18.0` we used to have `unlimited` local and session storage but soon after they started to limit the amount due to browser memory issue. [This](http://dev-test.nemikor.com/web-storage/support-test/) is the best link to check what is the available storage.
+Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
+
+Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
