@@ -11,6 +11,40 @@ playground: https://jscomplete.com/repl/
 5. Use `toFixed(2)` to convert floating number into two digit value. Example: `3.232444` will be printed as `3.23`.
 
 
+### Parts Unknown:
+
+1. `ReferenceError` occurs whenever javascript engine RHS lookup (right hand side / retrieve her/his source of truth) fails to find the defined variable in nested `Scope`.
+```javascript
+var a =1; /* LHS lookup done to assign value to a */
+function add(){
+  return a+b; /* RHS lookup to retrieve values but can't find b neither
+  in local scope (with in function) nor in global */
+}
+```
+
+2. `Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). ( i.e looks for local 'Scope' and move on to global 'Scope').
+```javascript
+var c =1; /* Step 3: i'm available for anyone */
+function parent(){
+  var b = c + 1; /* Step 2: RHS lookup for c and didn't find within scope, looks from global scope (i.e 1) */
+  function child(){
+    var c = 20;
+    return b+c;  /* Step 1: RHS lookup done to get b from outer scope (i.e c+1) but c reference was found with in scope (i.e 20)  */
+  }
+}
+```
+
+3. `Strict Mode` is created in ES5 and disallows the engine to create `global scope` variable when `LHS` lookup doesn't finds the variables declared already.
+
+4. `ReferenceError` is Scope resolution-failure related, whereas `TypeError` implies that Scope resolution was successful, but that there was an illegal/impossible action attempted against the result.
+
+5. `Shadowing`, during lexical scope evaluation if the engine finds the local variable ( example: `a`) declared inside the function then it wouldn't look for global variable. This is `Shadowing`, this helps to have variables with same name in different scope. However we can skip the lexical shadowing and access global variable by it's window property ( in browsers ) by doing `window.a`.
+```javascript
+/* Refer same example from lexical scope */
+```
+6. `Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
+
+
 
 ### Deep Dive:
 

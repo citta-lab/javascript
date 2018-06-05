@@ -3,8 +3,8 @@
 
 Printing the given word in reverse order, we might have to understand how many letters the word/string has and print the word from right to left. The concept is similar to stacking (first in, last out). We can achieve this by making use of an `array`, as an array supports stacking.
 
-#### Data structure: stacks
-#### Given word: 'racecar'
+Data structure: stacks   
+Given word: 'racecar'
 
 ```javascript
 function reverser(word){
@@ -41,3 +41,6 @@ if(word === rWord){
 #### Pointers
 1. length of the word is 7, but the array index starts from 0. so use `i<word.length` instead of `i<=word.length`;
 2. `pop()` works on array not string.
+
+
+### 2. Remove any duplicates in the list ?
