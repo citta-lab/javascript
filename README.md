@@ -6,14 +6,21 @@ playground: https://jscomplete.com/repl/
 ### Pointers:
 1. Inline if-else is to use conditional operator `condition ? true : false`.
 2. In JavaScript, `true && expression` always evaluates to `expression`, and `false && expression` always evaluates to `false`. Example: ` check == 20 && check-1`, if check is equal to 20 then we will deduct one from it.
-3. `var` is variable and can be changed where as `const` is like final in java. since `ES6` we use `let` instead of `var` which has smaller scope than the variable.
+3. `var` is variable and can be changed where as `const` is like final in java. since `ES6` we use `let` instead of `var` which has smaller scope than the variable. For example: `var` attaches the variable to the declared function and `let` will attached to the block ( for(let i=0; i<10; i++)). `i` is only available for `for` loop.
 4. We explicitly need to define `export` and `import` in javascript. We can also do explicit import by named import example `import {calAge} from './fileName.js'` which ignores all the export definition from fileName and only imports `calAge`.
 5. Use `toFixed(2)` to convert floating number into two digit value. Example: `3.232444` will be printed as `3.23`.
+6. Avoid writing anonymous functions instead convert it to named. Such example would be in `setTimeout( function(){ .. }, 1000)` can be written as `setTimeout( function timeOut(){ .. }, 1000)`.
+7. `undeclared` is thrown when there is no variable DECLARED of name you are looking for.
+8. `undefined` is thrown when there is a variable DECLARED of name you are looking for with NO VALUE. Undefined it self is a value assigned to variable when NO VALUE is found for the declared variable.
+9. `eval` and `with` keywords in javascript changes the lexical scope and will hinder the performance and hard to debug. So it's advisable to avoid using them.
+10. `Lexical Scope` is authored time decision ( while writing the code ) and `Dynamic Scope` is runtime decision.
+11. LHS (left hand side) happens at compile time and RHS (right hand side) happens at run time. This is very important feature to understand HOISTING.
 
 
 ### Parts Unknown:
 
-1. `ReferenceError` occurs whenever javascript engine RHS lookup (right hand side / retrieve her/his source of truth) fails to find the defined variable in nested `Scope`.
+1. ReferenceError:      
+`ReferenceError` occurs whenever javascript engine RHS lookup (right hand side / retrieve her/his source of truth) fails to find the defined variable in nested `Scope`.
 ```javascript
 var a =1; /* LHS lookup done to assign value to a */
 function add(){
@@ -22,7 +29,8 @@ function add(){
 }
 ```
 
-2. `Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). ( i.e looks for local 'Scope' and move on to global 'Scope').
+2. Lexical Scope:   
+`Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). During this process the engine looks for local 'Scope' and move on to global 'Scope'.
 ```javascript
 var c =1; /* Step 3: i'm available for anyone */
 function parent(){
@@ -33,16 +41,118 @@ function parent(){
   }
 }
 ```
+Anti Lexical / EVAL:     
+If we use an word `eval(value);` in our code block, it gets compiled during the execution and prevents from doing the `Lexical` lookup. This also hinders the performance optimization done by the engine. Short answer, DON'T USE IT.
+```javascript
+var boo = "friend";
 
-3. `Strict Mode` is created in ES5 and disallows the engine to create `global scope` variable when `LHS` lookup doesn't finds the variables declared already.
+function foo(value){
+  eval(value);  // cheating, which compiles var boo = 'ex', now boo as ex.
+  console.log(boo); // prints 'ex' instead of 'friend'.
+}
 
-4. `ReferenceError` is Scope resolution-failure related, whereas `TypeError` implies that Scope resolution was successful, but that there was an illegal/impossible action attempted against the result.
+foo("var boo = 'ex';");
+```
 
-5. `Shadowing`, during lexical scope evaluation if the engine finds the local variable ( example: `a`) declared inside the function then it wouldn't look for global variable. This is `Shadowing`, this helps to have variables with same name in different scope. However we can skip the lexical shadowing and access global variable by it's window property ( in browsers ) by doing `window.a`.
+3. Strict Mode:   
+`Strict Mode` is created in ES5 and disallows the engine to create `global scope` variable when `LHS` lookup doesn't finds the variables declared already.
+```javascript
+function foo(boo){
+  boo ="friend"; // boo is created during compilation by LHS lookup in function
+  bae ="girl friend"; // foo local scope doesn't find bae, so global scope just creates it at run time.
+}
+```
+In Above scenario, memory leakage can be avoided if we use `strict mode` while writing javascript.
+
+4. Reference Error:    
+`ReferenceError` is Scope resolution-failure related, whereas `TypeError` implies that Scope resolution was successful, but that there was an illegal/impossible action attempted against the result. Example of ReferenceError,
+```javascript
+function foo(){
+  boo ='friend'; /* boo is not declared but engine will create `boo` in global scope anyway */
+
+  function go(){
+    console.log(" Alright, will hit the ground");
+  }
+  go();
+}
+
+/* executing the functions */
+foo(); /* engine finds the foo declared in global scope by looking RHS */
+go(); /* engine looks for go declaration in global scope and doesn't find and throws ReferenceError */
+```
+In short, In case of LHS lookup ( boo = 'friend') engine creates a variable if it's not declared in global scope however when doing RHS lookup ( go(); ) it instead throws an error.
+
+5. Shadowing:    
+`Shadowing`, during lexical scope evaluation if the engine finds the local variable ( example: `a`) declared inside the function then it wouldn't look for global variable. This is `Shadowing`, this helps to have variables with same name in different scope. However we can skip the lexical shadowing and access global variable by it's window property ( in browsers ) by doing `window.a`.
 ```javascript
 /* Refer same example from lexical scope */
 ```
-6. `Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
+
+6. Module Management:    
+`Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
+
+7. Expression vs Declaration:     
+If a `function` keyword is a first word in a statement then it is function `declaration`, where as if the `function` is assigned to an variable then it is called `expression`.
+
+7.1 Declaration:    
+```javascript
+/* example of declaration */
+function foo(){
+  console.log(" I'm function declaration");
+}
+```
+
+7.2 Expression:
+```javascript
+/*example of expression */
+  /* 1. Named expression i.e because we have defined as foo.*/
+  var bar = function foo(){
+    console.log(" I'm function expression");
+  }
+
+  /* 2. Anonymous function expression */
+  var bar = function (){
+    console.log(" I'm function expression as well");
+  }
+```  
+Using named functions are more beneficial than doing anonymous function expression with debugging, to use named functions with in it's own scope ( i.e named function expression can't be called in global scope buy using it's function name i.e foo).
+
+7.3 Immediately Invoked Function Expression (IIFE Pattern):
+This is widely used with both named or anonymous function expression ( note `function` keyword starts after `(` and hence not `declaration` ) to prevent polluting the global name space. Best way of writing private functions.
+```javascript
+/* example of expression */
+/* 1. Named expression */
+(function foo(){
+  console.log(" I'm also function expression");
+})(); // <- '()' used to execute the function Immediately.
+
+/* 2. Named expression with parameter */
+(function foo(global){
+  console.log(" Lets print window object : "+JSON.stringify(global));
+})(window);
+```
+This declares block of scope with in the function and hence any variable declarations within them are scoped to that named/anonymous function.
+
+8. Hoisting:
+The idea of hoisting is processing the declaration code (by doing LHS lookup) first and run the assignment (by doing RHS lookup) at runtime. For example:
+8.1 Actual code:
+```javascript
+a;
+b;
+var a ="Hello";
+var b ="Hi";
+a;
+```
+As we know javascript goes through this code from top to bottom, however the important key take way is the way it process the code by LHS and RHS lookup. So by doing LHS lookup during compile time it only process `var a ="Hello";` and `var b ="Hi";` and during runtime RHS lookup will find already declared `a` and `b` variable. Simply the above code would be processed as mentioned below (mental processing),
+```javascript
+var a ="Hello";
+var b ="Hi";
+a;
+b;
+a;
+```
+Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added.
+
 
 
 
