@@ -15,6 +15,9 @@ playground: https://jscomplete.com/repl/
 9. `eval` and `with` keywords in javascript changes the lexical scope and will hinder the performance and hard to debug. So it's advisable to avoid using them.
 10. `Lexical Scope` is authored time decision ( while writing the code ) and `Dynamic Scope` is runtime decision.
 11. LHS (left hand side) happens at compile time and RHS (right hand side) happens at run time. This is very important feature to understand HOISTING.
+12. `[[Prototype]]` is a linkage between two objects ( child and parent ). This is created whenever we create object using `new` keyword. i.e `var boo = new Foo()` and also when we use `Object.create` like `Object.create(Foo.prototype)`.
+13. `__proto__` is called dunder proto. `__proto__` is getter method (property) present in the out of the box object and which provides the public link.
+14. `Behavior Delegation`, whenever we create new object using `new` keyword or create using `Object.create` then we are delegating from bottom-up (newly created) to parent object. In case of inheritance (OOP pattern) we copy the behavior from top (parent) to child (down).
 
 
 ### Parts Unknown:
@@ -89,7 +92,34 @@ In short, In case of LHS lookup ( boo = 'friend') engine creates a variable if i
 ```
 
 #### 6. Module Management:    
-`Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
+`Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace. Two characteristic of module patterns are,
+* Should have outer enclosing function
+* Atleast one/more references to inner function should be return ( should have closure )
+```javascript
+var foo = (function(){
+  var name = "Bob";
+  return function(){
+    console.log(name);
+  }
+})();
+
+foo.bar();
+```
+but as of ES6 we could just use export instead of wrapping with function and returning function reference.
+```javascript
+//file: foo.js
+var obj = {bar: "BAR"}
+export function boo(){
+  return obj.bar;
+}
+```
+Using the module code,
+```javascript
+import bar from 'foo'; // can use bar function
+bar();
+module foo from 'foo'; // now can use whole module
+foo.bar();
+```
 
 #### 7. Function Expression vs Declaration:     
 If a `function` keyword is a first word in a statement then it is function `declaration`, where as if the `function` is assigned to an variable then it is called `expression`.
@@ -114,10 +144,14 @@ function foo(){
   var bar = function (){
     console.log(" I'm function expression as well");
   }
+
+  bar(); // executes named expression
+  foo(); // can't call foo but need to use bar() instead.
 ```  
 Using named functions are more beneficial than doing anonymous function expression with debugging, to use named functions with in it's own scope ( i.e named function expression can't be called in global scope buy using it's function name i.e foo).
 
-7.3 Immediately Invoked Function Expression (IIFE Pattern):     
+7.3 Immediately Invoked Function Expression (IIFE Pattern):   
+
 This is widely used with both named or anonymous function expression ( note `function` keyword starts after `(` and hence not `declaration` ) to prevent polluting the global name space. Best way of writing private functions.
 ```javascript
 /* example of expression */
@@ -216,6 +250,27 @@ When we use `new` keyword in front of function, there are 4 things happens as fo
 * Brand new object gets bound as `this` keyword for the purpose of function call.
 * Implicitly returns the newly created `this` keyword for this object if we don't have `return` in the function.
 
+#### 11. Closure :
+Closure is mathematic concept comes from lamda calculus. In simple term, Closure is a `function` remembers it's lexical scope even when it is (i.e function ) executed outside of that lexical scope.
+```javascript
+function foo(){
+  var bar = "BAR";
+
+  function boo(){
+    console.log(bar);
+  }
+
+  bee(boo); //passing function reference
+}
+
+// here callback is boo
+function bee(callback){
+  callback(); // executing boo(); but gets bar from it's declaration lexical scope
+}
+
+foo(); // prints BAR
+```
+So the reference to the existing lexical scope is remembered while processing.
 
 ### Deep Dive:
 
