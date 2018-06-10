@@ -153,7 +153,68 @@ a;
 ```
 Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added.
 
+9. `this` Keyword :
+Always think about `this` execution from the place the function execution is called.Four rules to determine the working nature of `this` keyword in precedence.
+* Did the function get called with `new` keyword ? If so use that object. ( i.e var test = new foo()).
+* Did the function get called with `call` or `apply`, then use that object. ( used in explicit `this` binding or hard binding )
+* Did the function get called with object context ( owning the object or implicit binding )
+* Default to global object, expect in strict mode.
 
+Example of implicit binding:
+```javascript
+function foo(){
+  console.log(this.bar);
+}
+
+var bar = "GLOBAL BAR";
+var object1 = { bar: "BAR", foo:foo};
+object1.foo(); // prints BAR defined in the object1
+```
+Example of explicit binding:
+```javascript
+function foo(){
+  console.log(this.bar);
+}
+
+var bar = "GLOBAL BAR";
+var object1 = { bar: "BAR", foo:foo};
+var object2 = { bar: "BUR"};
+
+foo.call(object1); // prints BAR defined in the object1
+foo.call(object2); // prints BUR defined in the object2
+```
+In both the scenarios we can always execute `foo()` directly which will reference to global bar variable i.e (var bar = "GLOBAL BAR").
+
+The important thing to remember is the idea of lexical scoping doesn't work with `this` keyword and the below example justifies this statement.
+```javascript
+function foo(){
+  var bar = "BAR";
+  bro();
+}
+
+function bro(){
+  console.log(this.bar);
+}
+
+var bar = "BRO";
+foo();
+/* prints BRO, as the function foo is called from the global
+context */
+```
+
+10. `new` Keyword :
+`new` keyword in javascript is nothing to do with instantiating the class how we would do it in other languages such as `java`. Instead it creates the `constructor` call.
+```javascript
+function foo() {
+  console.log("I'm function foo ");
+}
+var check = new foo();
+```
+When we use `new` keyword in front of function, there are 4 things happens as follows,
+* Creates a brand new object
+* Newly created object get's Linked.
+* Brand new object gets bound as `this` keyword for the purpose of function call.
+* Implicitly returns the newly created `this` keyword for this object if we don't have `return` in the function.
 
 
 ### Deep Dive:
