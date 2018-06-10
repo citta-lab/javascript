@@ -91,7 +91,7 @@ In short, In case of LHS lookup ( boo = 'friend') engine creates a variable if i
 #### 6. Module Management:    
 `Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
 
-#### 7. Expression vs Declaration:     
+#### 7. Function Expression vs Declaration:     
 If a `function` keyword is a first word in a statement then it is function `declaration`, where as if the `function` is assigned to an variable then it is called `expression`.
 
 7.1 Declaration:    
@@ -117,7 +117,7 @@ function foo(){
 ```  
 Using named functions are more beneficial than doing anonymous function expression with debugging, to use named functions with in it's own scope ( i.e named function expression can't be called in global scope buy using it's function name i.e foo).
 
-7.3 Immediately Invoked Function Expression (IIFE Pattern):
+7.3 Immediately Invoked Function Expression (IIFE Pattern):     
 This is widely used with both named or anonymous function expression ( note `function` keyword starts after `(` and hence not `declaration` ) to prevent polluting the global name space. Best way of writing private functions.
 ```javascript
 /* example of expression */
@@ -156,7 +156,7 @@ Always remember during hoisting, function declarations are moved on top followed
 #### 9. `this` Keyword :
 Always think about `this` execution from the place the function execution is called.Four rules to determine the working nature of `this` keyword in precedence.
 * Did the function get called with `new` keyword ? If so use that object. ( i.e var test = new foo()).
-* Did the function get called with `call` or `apply`, then use that object. ( used in explicit `this` binding or hard binding )
+* Did the function get called with `call` or `apply`, then use that object. (used in explicit `this` binding or hard binding)
 * Did the function get called with object context ( owning the object or implicit binding )
 * Default to global object, expect in strict mode.
 
