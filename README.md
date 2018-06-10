@@ -19,7 +19,7 @@ playground: https://jscomplete.com/repl/
 
 ### Parts Unknown:
 
-1. ReferenceError:      
+#### 1. ReferenceError:      
 `ReferenceError` occurs whenever javascript engine RHS lookup (right hand side / retrieve her/his source of truth) fails to find the defined variable in nested `Scope`.
 ```javascript
 var a =1; /* LHS lookup done to assign value to a */
@@ -29,7 +29,7 @@ function add(){
 }
 ```
 
-2. Lexical Scope:   
+#### 2. Lexical Scope:   
 `Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). During this process the engine looks for local 'Scope' and move on to global 'Scope'.
 ```javascript
 var c =1; /* Step 3: i'm available for anyone */
@@ -54,7 +54,7 @@ function foo(value){
 foo("var boo = 'ex';");
 ```
 
-3. Strict Mode:   
+#### 3. Strict Mode:   
 `Strict Mode` is created in ES5 and disallows the engine to create `global scope` variable when `LHS` lookup doesn't finds the variables declared already.
 ```javascript
 function foo(boo){
@@ -64,7 +64,7 @@ function foo(boo){
 ```
 In Above scenario, memory leakage can be avoided if we use `strict mode` while writing javascript.
 
-4. Reference Error:    
+#### 4. Reference Error:    
 `ReferenceError` is Scope resolution-failure related, whereas `TypeError` implies that Scope resolution was successful, but that there was an illegal/impossible action attempted against the result. Example of ReferenceError,
 ```javascript
 function foo(){
@@ -82,16 +82,16 @@ go(); /* engine looks for go declaration in global scope and doesn't find and th
 ```
 In short, In case of LHS lookup ( boo = 'friend') engine creates a variable if it's not declared in global scope however when doing RHS lookup ( go(); ) it instead throws an error.
 
-5. Shadowing:    
+#### 5. Shadowing:    
 `Shadowing`, during lexical scope evaluation if the engine finds the local variable ( example: `a`) declared inside the function then it wouldn't look for global variable. This is `Shadowing`, this helps to have variables with same name in different scope. However we can skip the lexical shadowing and access global variable by it's window property ( in browsers ) by doing `window.a`.
 ```javascript
 /* Refer same example from lexical scope */
 ```
 
-6. Module Management:    
+#### 6. Module Management:    
 `Module Management`, Whenever we use libraries javascript engine creates unique object in global namespace and assign library related variables and functions to it. This helps preventing polluting global namespace, Similarly using `Module Management` we explicitly need to export and import which helps preventing polluting the namespace.
 
-7. Expression vs Declaration:     
+#### 7. Expression vs Declaration:     
 If a `function` keyword is a first word in a statement then it is function `declaration`, where as if the `function` is assigned to an variable then it is called `expression`.
 
 7.1 Declaration:    
@@ -133,7 +133,7 @@ This is widely used with both named or anonymous function expression ( note `fun
 ```
 This declares block of scope with in the function and hence any variable declarations within them are scoped to that named/anonymous function.
 
-8. Hoisting:
+#### 8. Hoisting:
 The idea of hoisting is processing the declaration code (by doing LHS lookup) first and run the assignment (by doing RHS lookup) at runtime. For example:
 8.1 Actual code:
 ```javascript
@@ -153,7 +153,7 @@ a;
 ```
 Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added.
 
-9. `this` Keyword :
+#### 9. `this` Keyword :
 Always think about `this` execution from the place the function execution is called.Four rules to determine the working nature of `this` keyword in precedence.
 * Did the function get called with `new` keyword ? If so use that object. ( i.e var test = new foo()).
 * Did the function get called with `call` or `apply`, then use that object. ( used in explicit `this` binding or hard binding )
@@ -202,7 +202,7 @@ foo();
 context */
 ```
 
-10. `new` Keyword :
+#### 10. `new` Keyword :
 `new` keyword in javascript is nothing to do with instantiating the class how we would do it in other languages such as `java`. Instead it creates the `constructor` call.
 ```javascript
 function foo() {
@@ -219,7 +219,7 @@ When we use `new` keyword in front of function, there are 4 things happens as fo
 
 ### Deep Dive:
 
-1. Pure Functions:
+#### 1. Pure Functions:
 
 The reason i fumbled into pure functions are because of reducers method in Redux, it's fascinating how functional programming has evolved in javascript and wanted to make sure i learn the right way, so here i'm learning about pure functions.
   So what are pure functions after all ? If we remember our school mathematics we often used `f(x)=x*x`
@@ -245,7 +245,7 @@ const value = (x) => x * g ;
 const value = ( x, g=3.18) => x * g;
 ```
 
-2. Array Functions
+#### 2. Array Functions
 
 2.1 Reduce
 
@@ -332,7 +332,7 @@ var final = check.reduce((accumulatedValue, eachValue) => {
 },0)
 console.log(final)
 ```
-3. Arrow Function:
+#### 3. Arrow Function:
 Arrow functions are replacement of normal functions which also solves the problem of `this` in javascript. If we use `this` inside the arrow function then it will always be in the context. Simple example of normal vs arrow function is.
 ```javascript
 // normal function
