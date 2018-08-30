@@ -1,7 +1,15 @@
 # JS Questions:
 
 * Explain event delegation
-  - It is related to DOM events, whenever we attach an event listner to parent DOM element then it not only listnes to parent but also it's children.
+  - It is related to DOM events, whenever we attach an event listner to parent DOM element then it's handler will get executed whenever it's child
+  elements are clicked as well.
+  ```html
+  <ul onclick="alert(event.type + '!')">
+    <li onclick="alert(event.type + '^^^^')>One</li>
+    <li>Two</li>
+    <li>Three</li>
+  </ul>
+  ```
 * Explain how `this` works in JavaScript
 * Explain how prototypal inheritance works
 * What do you think of AMD vs CommonJS?
