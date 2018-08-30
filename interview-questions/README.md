@@ -1,6 +1,7 @@
 # JS Questions:
 
 * Explain event delegation
+  - It is related to DOM events, whenever we attach an event listner to parent DOM element then it not only listnes to parent but also it's children.
 * Explain how `this` works in JavaScript
 * Explain how prototypal inheritance works
 * What do you think of AMD vs CommonJS?
