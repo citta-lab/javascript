@@ -272,6 +272,43 @@ foo(); // prints BAR
 ```
 So the reference to the existing lexical scope is remembered while processing.
 
+#### 12. Generators:
+Special function which has `*` after the `function` keyword. Whenever we invoke generator function we get generator `object` in return instead of running the complete code ( how normal function code executes ). Then we make use of `next` method on generator object to execute the code until `yield` and/or `return` is defined. So executes like `iterator`.
+  `yield` is a special keyword can only be executed with generator function.
+```javascript
+/* normal function */
+function addNumber(a,b){
+  const value = a + b;
+  return value;
+}
+
+//can be called
+let data = addNumber(3,1);
+
+/* as generators */
+function* addNumber(a,b){
+  const value = a + b;
+  return value;
+}
+
+// can be called
+let gen = addNumber(3,1);
+let data = gen.next();
+```
+example of using generators with promise
+```javascript
+function* delay(){
+  yield new Promise(r=> setTimeout(r, 1000));
+  return "hello";
+}
+
+//using Generators
+let gen = delay();
+gen.next().value.then(value=>{
+  console.log(gen.next())
+})
+```
+
 ### Deep Dive:
 
 #### 1. Pure Functions:

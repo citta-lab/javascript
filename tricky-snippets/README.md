@@ -141,3 +141,28 @@ function foo({ a, b=11, c}){
 foo({c:1}) // will print a as undefined, b as 11 (default value), c as 1
 foo({a:2, b:12}) // will print a as 2, b as 12 and c as undefined.
 ```
+
+8. Read from html meta data
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Free Web tutorials">
+  <meta name="keywords" content="HTML,CSS,XML,JavaScript">
+  <meta name="author" content="John Doe">
+</head>
+<body>
+
+<p>All meta information goes in the head section...</p>
+<script>
+	function check(){
+    	const metaTag = document.querySelector("meta[name='author']");
+        const value = metaTag.getAttribute('content')
+        alert(value)
+    }
+    check()
+</script>
+</body>
+</html>
+```

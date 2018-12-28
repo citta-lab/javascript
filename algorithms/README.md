@@ -44,3 +44,119 @@ if(word === rWord){
 
 
 ### 2. Remove any duplicates in the list ?
+We take an array and return the cleaner array.
+```javascript
+function removeDuplicates(array){
+	if(array.length < 0){
+		return;
+	}
+
+	var cleanArray = [];
+	for(let i=0; i<array.length; i++){
+		if(cleanArray.indexOf(array[i]) < 0){
+			cleanArray.push(array[i]);
+		}else{
+			// we don't need this but keeping it for visualization
+			console.log(" duplicate : "+array[i]);
+		}
+	}
+
+	return cleanArray;
+}
+```
+checking example
+```javascript
+values = removeDuplicates([1,2,3,4,5,3,2]) // returns [1, 2, 3, 4, 5]
+```
+
+### 3. Implement an algorithm to determine if a string has all unique characters. What if you can not use additional data structures?
+In this situation we can make use of array to hold the values if it's not already present and if it does then we
+return true.
+```javascript
+function hasDuplicate(array){
+	if(array.length < 0){
+		return;
+	}
+
+	var cleanArray = [];
+	for(let i=0; i<array.length; i++){
+		if(cleanArray.indexOf(array[i]) < 0){
+			cleanArray.push(array[i]);
+		}else{
+			return true;
+		}
+	}
+
+	return false;
+}
+```
+checking example
+```javascript
+hasDuplicate([1,3,4,6,7]); // returns false
+hasDuplicate([1,3,4,6,7,3]); // returns true
+```
+
+### 4. Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes, write a method to rotate the image by 90 degrees.
+
+```javascript
+function rotate(matrix){
+	const size = matrix.length - 1; // size of an original array
+	var result = matrix.map((row,i) => row.map((data, j) => matrix[size-j][i]));
+	return result;
+  //if we need to return the same array
+  /**
+    * matrix.length = 0;
+    * matrix.push(...result);
+    * return matrix;
+  */
+}
+```
+check example
+```javascript
+var data = [["a", "a", "a", "a"],
+["b", "b", "b", "b"],
+["c", "c", "c", "c"],
+["d", "d", "d", "d"]];
+
+rotate(data);
+
+// will return 90 degree rotate array
+["d", "c", "b", "a"]
+["d", "c", "b", "a"]
+["d", "c", "b", "a"]
+["d", "c", "b", "a"]
+```
+
+### 5. Shift and Rotate an array.
+The idea is is to not completely rotate an array but move or shift array by given `n` element and put it back in the beginning of an array. i.e
+
+```javascript
+function rotateOneDimenArray(array, shiftSize){
+	if(array.length < 0 && shiftSize < 0 && array.length < shiftSize ){
+		return;
+	}
+
+	var leftArrayPart = [];
+	var rightArrayPart = [];
+
+	for(let i=0; i<array.length; i++){
+		if(i<=shiftSize){
+			rightArrayPart.push(array[i]);
+		}else{
+			leftArrayPart.push(array[i]);
+		}
+	}
+
+	leftArrayPart.push(...rightArrayPart);
+
+	return leftArrayPart;
+}
+```
+validate function
+```javascript
+var data = ['a','b','c','d','e'];
+rotateOneDimenArray(data, 2);
+
+//should result in
+['c','d','e','a','b']
+```
