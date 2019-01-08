@@ -309,6 +309,46 @@ gen.next().value.then(value=>{
 })
 ```
 
+#### 13. Call, Apply, Bind
+
+In javascript, object property can be passed to more generic function using `call` and/or `apply`. Both work similar way with very small difference. In both cases, the function doesn't need to know about the arguments. i.e call and apply execute a function in the context or scope of arguments.
+
+call
+```javascript
+let obj = {num: 2};
+
+let callExample = function (a){
+  return this.num + a;
+}
+/**
+ * callExample.call(object, function argument)
+ *
+ */
+let callResult = callExample.call(obj, 10);
+console.log(callResult); // 12 i.e 2 + 10;
+```
+If we have to pass more arguments to function then we can do like `callExample.call(obj, arg1, arg2, arg3)` but `apply` solves this problem by providing to use an array.
+
+apply
+```javascript
+let obj = {num: 2};
+
+let callExample = function (a,b){
+  return this.num + a + b;
+}
+/**
+ * callExample.call(object, function argument)
+ *
+ */
+let arr = [5,5];
+let callResult = callExample.apply(obj, arr);
+console.log(callResult); // 12 i.e 2 + 5 + 5;
+```
+
+>> Use .bind() when you want that function to later be called with a certain context, useful in events. Use .call() or .apply() when you want to invoke the function immediately, and modify the context.
+
+
+
 ### Deep Dive:
 
 #### 1. Pure Functions:
@@ -336,6 +376,17 @@ const value = (x) => x * g ;
 ```javascript
 const value = ( x, g=3.18) => x * g;
 ```
+
+#### 13. Inheritance
+
+In typical object oriented programming (ex: java) when we do inheritance we are copying the the blueprint of the super class and creating new entity (child class). In javascript, we are linking the child class or entity to the parent using `prototype`.
+Example: If `Vehicle` is a parent class then `car` and `bus` can be child class inherited from it. In javascript we can make this happen by `Vehile.prototype`.
+
+>> In JavaScript when we create the object it does not copy the properties or behavior, it creates a link. Usage of Object.create() to achieve classical inheritance.
+
+
+
+
 
 #### 2. Array Functions
 
@@ -509,3 +560,10 @@ Typically almost all browsers are provided with storage options to cache your da
 Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
 
 Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
+
+
+
+
+### Reference
+1. Inheritance : https://codeburst.io/javascript-inheritance-25fe61ab9f85
+2.

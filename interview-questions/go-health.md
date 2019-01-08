@@ -79,7 +79,11 @@ When an object is copied by an another object we are referencing the same object
 8.	Difference in mogo and sql
 
 9.	Design restful api endpoints
+    https://www.restapitutorial.com/httpstatuscodes.html
+    https://hackernoon.com/restful-api-designing-guidelines-the-best-practices-60e1d954e7c9
 10.	Reflection API
     API used to inspect any object class and/or variables and/or static methods at runtime. This helps in avoid writing boiler plate code to inspect the object class. Example: In javascript, `Object.keys(obj)` or `Object.getPrototypeOf()` acts as reflection but since ES6 it has it's own reflection methods available to inspect any object.
 11.	Implement this key world in javascript
 12.	Design a game software from scratch
+13. Design an elevator system
+14. Difference between Outer join vs Inner join
