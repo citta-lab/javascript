@@ -18,6 +18,9 @@ playground: https://jscomplete.com/repl/
 12. `[[Prototype]]` is a linkage between two objects ( child and parent ). This is created whenever we create object using `new` keyword. i.e `var boo = new Foo()` and also when we use `Object.create` like `Object.create(Foo.prototype)`.
 13. `__proto__` is called dunder proto. `__proto__` is getter method (property) present in the out of the box object and which provides the public link.
 14. `Behavior Delegation`, whenever we create new object using `new` keyword or create using `Object.create` then we are delegating from bottom-up (newly created) to parent object. In case of inheritance (OOP pattern) we copy the behavior from top (parent) to child (down).
+15. `Interface`: javascript doesn't have interface because it's inheritance is based of Object instead of
+Class type. Also javascript is extremely dynamic so we can define the property of an object and can use as interface.
+16. `Polymorphism`: Ability to call the same method on different objects and each behave different is Polymorphism. We can make use of `ES6` extends property to Polymorphism. Example `class Manager extends Person`. Now we can overwrite method defined in `Person` class which will behave different when `let myManager = new Manager();` and `myManager.sameMethod()` is called.
 
 
 ### Parts Unknown:
@@ -150,6 +153,10 @@ function foo(){
 ```  
 Using named functions are more beneficial than doing anonymous function expression with debugging, to use named functions with in it's own scope ( i.e named function expression can't be called in global scope buy using it's function name i.e foo).
 
+Now the point is what is the use of function expression over declaration ?
+- If we are wanting to do functional composition and/or currying and/or create higher order function then we do need use functional expression.
+- In function expression the left side variable will get hosted first and `undefined` is assigned along with other functions. Unlike in declaration whole function get hoisted.
+
 7.3 Immediately Invoked Function Expression (IIFE Pattern):   
 
 This is widely used with both named or anonymous function expression ( note `function` keyword starts after `(` and hence not `declaration` ) to prevent polluting the global name space. Best way of writing private functions.
@@ -188,6 +195,33 @@ a;
 Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added.
 
 #### 9. `this` Keyword :
+>> The 'Object' executing the current function
+
+Rule of thumb:
+1. If the function part of an object, it is called `method`. then `this` references itself.
+2. If the function is global function then `this` reference the global object.
+
+```javascript
+/* `this` references the object itself */
+let name = "rob";
+let obj = {
+  name: "bob";
+  display(){
+    console.log(this.name);
+  }
+}
+
+obj.display(); // prints bob.
+```
+Similarly, if the function is written outside of an object then it's is called function which references the global object.
+```javascript
+function newName(){
+  let name = "Mo";
+  console.log(this.name);
+}
+newName(); // returns undefined as this references to global object
+```
+
 Always think about `this` execution from the place the function execution is called.Four rules to determine the working nature of `this` keyword in precedence.
 * Did the function get called with `new` keyword ? If so use that object. ( i.e var test = new foo()).
 * Did the function get called with `call` or `apply`, then use that object. (used in explicit `this` binding or hard binding)
@@ -235,6 +269,7 @@ foo();
 /* prints BRO, as the function foo is called from the global
 context */
 ```
+Reference video on [this](https://www.youtube.com/watch?v=gvicrj31JOM)
 
 #### 10. `new` Keyword :
 `new` keyword in javascript is nothing to do with instantiating the class how we would do it in other languages such as `java`. Instead it creates the `constructor` call.
@@ -489,7 +524,47 @@ const calAge = (number) => {
 ```
 In both scenario we can call the function by `calAge(12);`. However this is further can be rewritten in single line using arrow function as const `const calAge = (number) => number * 2;` or `const calAge = number => number *2;`.
 
+### DOM manipulation from javascript
 
+#### Event Delegation:
+One of the most powerful event handling pattern in javascript achieved by bubbling events. The idea is that if we lot of DOM elements handled in similar way then we can bubble all the event to it's common ancestor (i.e parent) and handle it at once. Example: If we have list of element's then we can have event listener attached to it's parent and handle it effectively.
+
+```html
+<ul id='myList'>
+  <li>Bob</li>
+  <li>Rob</li>
+  <li>Ron</li>
+</ul>
+```
+Now our javascript snippet to handle the event delegation will look like below, So whenever user clicks on any
+```javascript
+let parent = document.getElementById('myList');
+// adding event listener to change color to yellow on click.
+parent.addEventListner('click', function(event){
+  const target = event.target;
+  if(target.matches('li')){
+    target.style.backgroundColor = 'yellow';
+  }
+});
+
+/**
+ *  Dynamically event listener is added.
+ *  <li>Jon</li> will be added by this.
+ */
+const addNewLi = document.createElement('li');
+addNewLi.textContent = 'Jon';
+parent.appendChild(addNewLi);
+```
+
+
+
+### Storage
+
+Typically almost all browsers are provided with storage options to cache your data in the browser. There are mainly two types of storage apart from `Cookies`, i.e `localStorage` and `sessionStorage`. The main difference between them are `localStorage` is persisted so the data will be saved if we close and re-open the browser and where as `sessionStorage` will be thrown away once the browser is closed. As you might have guessed they are independent of each other and we can use either one or both depending on the requirement.
+  In `Chrome 18.0` we used to have `unlimited` local and session storage but soon after they started to limit the amount due to browser memory issue. [This](http://dev-test.nemikor.com/web-storage/support-test/) is the best link to check what is the available storage.
+Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
+
+Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
 
 
 
@@ -552,16 +627,6 @@ var value = array.splice(0,2)
 console.log(" third time : "+value) //Jill
 ```
 The value of the result does change for the same passed arguments. This is one example for impure function.
-
-### Storage
-
-Typically almost all browsers are provided with storage options to cache your data in the browser. There are mainly two types of storage apart from `Cookies`, i.e `localStorage` and `sessionStorage`. The main difference between them are `localStorage` is persisted so the data will be saved if we close and re-open the browser and where as `sessionStorage` will be thrown away once the browser is closed. As you might have guessed they are independent of each other and we can use either one or both depending on the requirement.
-  In `Chrome 18.0` we used to have `unlimited` local and session storage but soon after they started to limit the amount due to browser memory issue. [This](http://dev-test.nemikor.com/web-storage/support-test/) is the best link to check what is the available storage.
-Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
-
-Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
-
-
 
 
 ### Reference

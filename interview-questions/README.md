@@ -3,13 +3,23 @@
 * Explain event delegation
   - It is related to DOM events, whenever we attach an event listner to parent DOM element then it's handler will get executed whenever it's child
   elements are clicked as well.
-  ```html
+  ```
   <ul onclick="alert(event.type + '!')">
     <li onclick="alert(event.type + '^^^^')>One</li>
     <li>Two</li>
     <li>Three</li>
   </ul>
   ```
+
+* How does the Web work ?
+ - Browser checks with DNS to lookup the `server` address.
+ - Browser sends `HTTP` request to the `server` requesting to send the copy of the website.
+ - If the server approves the request, it sends `200 OK` and chunk of data to display in packets.
+ - Browser assembles all the received data and display it to user.
+ reference [here](https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/How_the_Web_works)
+
+ 
+
 * Explain how `this` works in JavaScript
 * Explain how prototypal inheritance works
 * What do you think of AMD vs CommonJS?
@@ -72,4 +82,3 @@ duplicate([1,2,3,4,5]); // [1,2,3,4,5,1,2,3,4,5]
 * What are the benefits of using `spread syntax` and how is it different from `rest syntax`?
 * How can you share code between files?
 * Why you might want to create static class members?
-
