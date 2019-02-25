@@ -21,6 +21,8 @@ playground: https://jscomplete.com/repl/
 15. `Interface`: javascript doesn't have interface because it's inheritance is based of Object instead of
 Class type. Also javascript is extremely dynamic so we can define the property of an object and can use as interface.
 16. `Polymorphism`: Ability to call the same method on different objects and each behave different is Polymorphism. We can make use of `ES6` extends property to Polymorphism. Example `class Manager extends Person`. Now we can overwrite method defined in `Person` class which will behave different when `let myManager = new Manager();` and `myManager.sameMethod()` is called.
+17. Interpolation: we can make use of tick symbol and curly braces along with dollar symbol to build a interpolated string with values. Example: ` `You got a ${grade} (${cal}%)`;  `
+18. What is `[object Object]` ? whenever we are trying to `alert` an object (`let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.
 
 
 ### Parts Unknown:
@@ -192,10 +194,15 @@ a;
 b;
 a;
 ```
-Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added.
+Always remember during hoisting, function declarations are moved on top followed by variable declaration, and last function expressions are added. i.e
+```javascript
+1. function declarations /*this will already be defined at this point, so calling this will not warn/fail*/
+2. variable declarations /*this will be defined with undefined, right way to do it */
+3. function expressions
+```
 
 #### 9. `this` Keyword :
->> The 'Object' executing the current function
+>> The 'Object' executing the current function.
 
 Rule of thumb:
 1. If the function part of an object, it is called `method`. then `this` references itself.
@@ -206,9 +213,17 @@ Rule of thumb:
 let name = "rob";
 let obj = {
   name: "bob";
-  display(){
+  display: function(){
     console.log(this.name);
+    console.log(this); // this will be obj object context.
   }
+
+  function secondDisplay(){
+    console.log(this); /*this will be global window object, because it simply follows the rule. Any function
+    definition (not method) refers to global window object */
+  }
+
+  secondDisplay();
 }
 
 obj.display(); // prints bob.
@@ -470,6 +485,13 @@ console.log(JSON.stringify(array))
 ```
 without alerting the array we were able to reduce the array for desired result.
 
+Example:
+Finding the maxium or minimum values from an object. if `let obj = {2:6, 3:1, 4:2, 5:9}` then we need to get `9` from the object value.
+```javascript
+let maxCount = Object.keys(obj).reduce((m,k) => { return obj[k] > m ? obj[k] : m})
+console.log(maxCount)
+```
+
 2.2 Filter
 
 Similarly we can use filter on an array to get the desired value. The syntax of the filter is `array.filter( (eachElementofanArray) => { return eachElementofanArray.value <condition> checkValue })`. Where `<condition>` can be `===`,`<=`,`>` any of the operator and checkValue will be value condition. See the below example for details,
@@ -566,6 +588,64 @@ Oh why use sessionStorage instead of cookies ? because "To handle multiple trans
 
 Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
 
+### DOM
+
+javascript can be used to extract or manipulate document object property. Lets take an example html page here,
+```html
+<div class='first' id='first_id'>
+  <div class='display_class_one active'> .... </div>
+  <div class='display_class_two active' /> .... </div>
+  <div class="player-score" id="score">90</div>
+  <img src="dice-5.png" alt="Dice" class="dice" />
+  <button class="btn-roll"><i class="ion-ios-loop" onclick="rollDice()"></i>PRESS</button>
+</div>
+```
+1. get value 90 by id
+```javascript
+let value = document.getElementById('score').innerHTML;
+//OR
+let value = document.querySelector('#score').textContent;
+```
+
+2. update text value by id
+```javascript
+document.getElementById('score').innerHTML = '<em>'+20+'</em>';
+//OR
+document.querySelector('#score').textContent = 20;
+```
+
+3. Hiding image by CSS property (select by class)
+```javascript
+// none is used to hide the image by using css property
+document.querySelector('.dice').style.display = 'none';
+```
+
+4. Displaying image by CSS property
+```javascript
+// block is used to display the image by css property
+document.querySelector('.dice').style.display = 'block';
+```
+
+5. listening for click
+```javascript
+//without making use of onclick property defined in the button tag
+// <button class="btn-roll"><i class="ion-ios-loop" onclick="rollDice()"></i>PRESS</button>
+document.querySelector('.btn-roll').addEventListner('click', function(){ /*function body */})
+```
+
+6. Adding and removing class property
+```javascript
+/**
+ syntax:
+ document.querySelector('main_class_name').classList.remove('next_class_name')
+ */
+
+// this removes from this line <div class='display_class_one active'> .... </div>
+document.querySelector('.display_class_one').classList.remove('active');
+
+// this adds to this line <div class='display_class_two active' /> .... </div>
+document.querySelector('.display_class_two').classList.add('active');
+```
 
 
 
