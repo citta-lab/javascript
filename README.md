@@ -397,6 +397,92 @@ console.log(callResult); // 12 i.e 2 + 5 + 5;
 
 >> Use .bind() when you want that function to later be called with a certain context, useful in events. Use .call() or .apply() when you want to invoke the function immediately, and modify the context.
 
+### 14. Function constructor vs prototype vs Object.create
+The idea is to make use of inheritance using these three different ways, as we know everything in javascript is object except primitives (i.e String, boolean, Number, null, undefined ).
+
+#### 14.1 Using function constructor
+```javascript
+/**
+ 1. Function constructor to define property
+ 2. Function name should start with capital letter
+ **/
+let Person = function(name, birthYear, job){
+  this.name = name;
+  this.birthYear = birthYear;
+  this.job = job;
+}
+
+// both object uses Person object to build the property
+let bob = new Person('Bob', '1995', 'Mechanic');
+let rob = new Person('Rob', '1985', 'Doctor');
+console.log(bob.job); // will print Mechanic
+console.log(rob.job); // will print Doctor
+
+/**
+ we can add calculateAge method to Person object which can be reused,
+ so the update `Person` function constructor would look like
+ */
+ let Person = function(name, birthYear, job){
+   this.name = name;
+   this.birthYear = birthYear;
+   this.job = job;
+   this.calculateAge = function(){
+     return 2019 - this.birthYear;
+   }
+ }
+
+ console.log(bob.calculateAge()); // will print 24
+ console.log(rob.calculateAge()); // will print 34
+```
+
+#### 14.2 Using prototype
+Instead of adding / updating the parent Person function constructor's property we can make
+use of `prototype` property available by default in all objects. so defined Person constructor doesn't need to be get updated.
+
+```javascript
+// 1. Defining Person function constructor as usual
+let Person = function(name, birthYear, job){
+  this.name = name;
+  this.birthYear = birthYear;
+  this.job = job;
+}
+
+// 2. Creating new objects which references Person ( inherited )
+let bob = new Person('Bob', '1995', 'Mechanic');
+let rob = new Person('Rob', '1985', 'Doctor');
+
+// 3. using prototype to define new method
+Person.prototype.findAge = function(){
+  return 2019 - this.birthYear;
+}
+
+// 4. check age
+console.log(bob.findAge()); // will print 24
+```
+
+#### 14.3 Using Object.create
+Instead of creating a function we would be creating an object, hence now upper case letter to begin with. Then we can make use of Object.create to build new object which will make use of existing object while creating new one.
+```javascript
+// 1. Defining new blueprint object
+let personPrototype = {
+  calculateAge: function(){
+    return 2019 - this.birthYear;
+  }
+  // notice birthYear is not defined yet
+}
+
+// 2. creating new object by inheriting personPrototype
+let john = Object.create(personPrototype);
+john.name = 'John'
+john.birthYear = 1977
+
+// 3. another way is
+let mark = Object.create(personPrototype, {
+  name: { value: 'Mark'},
+  birthYear: {value: 1967}
+});
+```
+
 
 
 ### Deep Dive:
@@ -578,17 +664,7 @@ addNewLi.textContent = 'Jon';
 parent.appendChild(addNewLi);
 ```
 
-
-
-### Storage
-
-Typically almost all browsers are provided with storage options to cache your data in the browser. There are mainly two types of storage apart from `Cookies`, i.e `localStorage` and `sessionStorage`. The main difference between them are `localStorage` is persisted so the data will be saved if we close and re-open the browser and where as `sessionStorage` will be thrown away once the browser is closed. As you might have guessed they are independent of each other and we can use either one or both depending on the requirement.
-  In `Chrome 18.0` we used to have `unlimited` local and session storage but soon after they started to limit the amount due to browser memory issue. [This](http://dev-test.nemikor.com/web-storage/support-test/) is the best link to check what is the available storage.
-Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
-
-Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
-
-### DOM
+#### Useful DOM Manipulation queries
 
 javascript can be used to extract or manipulate document object property. Lets take an example html page here,
 ```html
@@ -647,6 +723,114 @@ document.querySelector('.display_class_one').classList.remove('active');
 document.querySelector('.display_class_two').classList.add('active');
 ```
 
+### Debouncing
+
+ a debounce function is essential to ensuring a given task doesn't fire so often that it bricks browser performance. Example would be avoid calling restAPI for every user keystroke instead call when the user pauses at once or better way to handle onScroll events. To understand better, we have `simulateEvents` function which will call `logger` function every `100` milliseconds until the `clearTimeout` is called at `2000`th milliseconds. So we would expect some (2000/100 = 20) events generated when we call simulateEvents().
+ ```javascript
+ // prefix not that import until we also want to handle any passed arguments
+ let logger = (prefix = 'message') => {
+     console.log(prefix + ' : '+new Date().toString())
+ }
+
+let simulateEvents = () => {
+
+      // calling logger every 100th mili seconds
+      let interval = setInterval(logger, 100);
+
+      //making sure we end the timeout
+      setTimeout(function(){
+          clearTimeout(interval)
+      }, 2000)
+}
+
+simulateEvents();
+```
+So this would result / console output like below,
+```javascript
+message : Wed Feb 27 2019 22:29:29 GMT-0600 (Central Standard Time)
+message : Wed Feb 27 2019 22:29:29 GMT-0600 (Central Standard Time)
+message : Wed Feb 27 2019 22:29:29 GMT-0600 (Central Standard Time)
+//...continues
+```
+Now using debouncing we could limit the number of times we can call the method based on the time interval we determine in the debouncing function.So it would be like
+```javascript
+let debounce = (inputFunction, interval) => {
+
+    // need this to handle clearTimeout once the execution is complete
+    let timeout;
+    /**
+     * hence debounce is a wrapper function which holds the given function execution
+     * by requested interval. we need to return the function.
+     */
+    let wrapper = function () {
+        // this will only be called once setTimeout time interval is met
+        let debouncedFunction = function () {
+            inputFunction.call(this);
+        }
+
+        clearTimeout(timeout);
+        timeout = setTimeout(debouncedFunction, interval);
+    }
+
+    return wrapper;
+}
+```
+Now all we need to do is wrap the logger function with debounce like `let newLogger = debounce(logger, 1000);` and pass it down to simulateEvents function
+```javascript
+let simulateEvents = () => {
+
+      // calling logger every 100th mili seconds
+      let interval = setInterval(newLogger, 100);
+
+      //making sure we end the timeout
+      setTimeout(function(){
+          clearTimeout(interval)
+      }, 2000)
+}
+
+simulateEvents();
+```
+Now we will only get ONE log messages instead of many. However we didn't worry about handling any arguments passed to the logger function instead of using default='message'. For this we would enhance the debounce function to handle `arguments` which captures passed arguments to the function and `apply` instead of `call` to handle array of objects / arguments.
+
+```javascript
+let logger = (prefix = 'message') => {
+    console.log(prefix + ' : '+new Date().toString())
+}
+
+// logger to use debounce
+let newLogger = debounce(logger, 1000);
+
+// defining debounce
+let debounce = (inputFunction, interval) => {
+
+    let timeout;
+    let wrapper = function () {
+        let args = arguments; //should capture all passed arguments by default
+        let debouncedFunction = function () {
+            inputFunction.apply(this, args);
+        }
+
+        clearTimeout(timeout);
+        timeout = setTimeout(debouncedFunction, interval);
+    }
+
+    return wrapper;
+}
+
+setTimeout(() => {
+    loggerWithDebounced('baz');
+}, 2000);
+```
+
+
+
+### Storage
+
+Typically almost all browsers are provided with storage options to cache your data in the browser. There are mainly two types of storage apart from `Cookies`, i.e `localStorage` and `sessionStorage`. The main difference between them are `localStorage` is persisted so the data will be saved if we close and re-open the browser and where as `sessionStorage` will be thrown away once the browser is closed. As you might have guessed they are independent of each other and we can use either one or both depending on the requirement.
+  In `Chrome 18.0` we used to have `unlimited` local and session storage but soon after they started to limit the amount due to browser memory issue. [This](http://dev-test.nemikor.com/web-storage/support-test/) is the best link to check what is the available storage.
+Oh why use sessionStorage instead of cookies ? because "To handle multiple transactions in different windows where cookies does it for single transactions".
+
+Great article on [Medium](https://medium.com/@ramsunvtech/onfocus-html5-storage-apis-b45d92aa424b) by Venkat on browser storage.
 
 
 Tricks:
