@@ -821,7 +821,7 @@ setTimeout(() => {
     loggerWithDebounced('baz');
 }, 2000);
 ```
-
+More detailed example on handling args is in this [example](https://github.com/citta-lab/javascript/blob/master/examples/debouncing-example.js). Also great medium blog [here](https://medium.com/walkme-engineering/debounce-and-throttle-in-real-life-scenarios-1cc7e2e38c68) and youtube video on debouncing [here](https://www.youtube.com/watch?v=QvJx9nXWmKc). 
 
 
 ### Storage
