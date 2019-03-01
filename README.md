@@ -395,9 +395,9 @@ let callResult = callExample.apply(obj, arr);
 console.log(callResult); // 12 i.e 2 + 5 + 5;
 ```
 
->> Use .bind() when you want that function to later be called with a certain context, useful in events. Use .call() or .apply() when you want to invoke the function immediately, and modify the context.
+>> Use .bind() when you want that function to later be called with a certain context, useful in events. Use .call() or .apply() when you want to invoke the function immediately, and modify the context.  I have created `why` and how to `implement binding` [here](https://github.com/citta-lab/javascript/blob/master/examples/bind-implementation.js)
 
-Great examples of [bind](https://javascript.info/bind) and also i have created why and how to implement binding [here](https://github.com/citta-lab/javascript/blob/master/examples/bind-implementation.js)
+Great examples of [bind](https://javascript.info/bind).
 
 #### Simple implementation of bind
 
