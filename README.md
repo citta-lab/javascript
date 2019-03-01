@@ -397,6 +397,21 @@ console.log(callResult); // 12 i.e 2 + 5 + 5;
 
 >> Use .bind() when you want that function to later be called with a certain context, useful in events. Use .call() or .apply() when you want to invoke the function immediately, and modify the context.
 
+Great examples of [bind](https://javascript.info/bind)
+
+#### Simple implementation of bind
+
+```javascript
+let bind = (inputFun, context) => {
+
+  let args = arguments; //handles any argument passed to the inputFn
+  return function ( ){
+   return inputFun.apply(context, args);  
+  }
+}
+```
+
+
 ### 14. Function constructor vs prototype vs Object.create
 The idea is to make use of inheritance using these three different ways, as we know everything in javascript is object except primitives (i.e String, boolean, Number, null, undefined ).
 
@@ -821,7 +836,7 @@ setTimeout(() => {
     loggerWithDebounced('baz');
 }, 2000);
 ```
-More detailed example on handling args is in this [example](https://github.com/citta-lab/javascript/blob/master/examples/debouncing-example.js). Also great medium blog [here](https://medium.com/walkme-engineering/debounce-and-throttle-in-real-life-scenarios-1cc7e2e38c68) and youtube video on debouncing [here](https://www.youtube.com/watch?v=QvJx9nXWmKc). 
+More detailed example on handling args is in this [example](https://github.com/citta-lab/javascript/blob/master/examples/debouncing-example.js). Also great medium blog [here](https://medium.com/walkme-engineering/debounce-and-throttle-in-real-life-scenarios-1cc7e2e38c68) and youtube video on debouncing [here](https://www.youtube.com/watch?v=QvJx9nXWmKc).
 
 
 ### Storage
