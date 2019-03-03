@@ -301,7 +301,7 @@ When we use `new` keyword in front of function, there are 4 things happens as fo
 * Implicitly returns the newly created `this` keyword for this object if we don't have `return` in the function.
 
 #### 11. Closure :
-Closure is mathematic concept comes from lamda calculus. In simple term, Closure is a `function` remembers it's lexical scope even when it is (i.e function ) executed outside of that lexical scope.
+Closure is mathematic concept comes from lamda calculus. In simple term, Closure is a `function` remembers it's lexical scope even when it is (i.e function ) executed outside of that lexical scope. In simple words, An inner function always have access to it's parameters and variables of it's outer function even when the outer function has been returned.
 ```javascript
 function foo(){
   var bar = "BAR";
@@ -321,6 +321,51 @@ function bee(callback){
 foo(); // prints BAR
 ```
 So the reference to the existing lexical scope is remembered while processing.
+Example 1:
+Calculating the remaining years before retiring,
+```javascript
+let retirement = (retirementAge) => {
+  let sentence = ' years left to retire.';
+  let currentYear = 2019;
+  return function (birthYear){
+    let remainingYear =  (retirementAge -(currentYear-birthYear));
+    return remainingYear + sentence;
+  }
+}
+
+let retirementUS = (66);
+retirementUS(1990); // 37 years left to retire.
+// OR
+retirement(66)(1990) // 37 years left to retire.
+/**
+ Note: returning function (i.e inner function) remembers the outer function argument (i.e retirement) and parameters (i.e sentence and currentYear) event after the outer function has been called/returned (i.e retirement(66));
+ */
+```
+Example 2: Real `closure` example in javascript `bind` method
+```javascript
+let bindHelper = (inputFn, context) => {
+    let args = arguments;
+    return function(){
+      return inputFn.apply(context, args);
+    }
+  }
+
+  // Using closure `bind` function
+  let user = {
+    name: 'Bob',
+    age: 37,
+    greeting: function(){
+        return this.name +' welcomes you'
+    }
+  }
+
+let greeting = user.greeting; // not executing the function yet
+console.log(greeting()); // undefined welcomes you
+
+// Making use of bind
+let useBind = bindHelper(greeting, user);
+console.log(useBind()); // Bob welcomes you
+```
 
 #### 12. Generators:
 Special function which has `*` after the `function` keyword. Whenever we invoke generator function we get generator `object` in return instead of running the complete code ( how normal function code executes ). Then we make use of `next` method on generator object to execute the code until `yield` and/or `return` is defined. So executes like `iterator`.
@@ -362,6 +407,8 @@ gen.next().value.then(value=>{
 #### 13. Call, Apply, Bind
 
 In javascript, object property can be passed to more generic function using `call` and/or `apply`. Both work similar way with very small difference. In both cases, the function doesn't need to know about the arguments. i.e call and apply execute a function in the context or scope of arguments.
+
+>> call and apply helps in method borrowing. So we can make use of generic method defined in some object with in another object.
 
 call
 ```javascript
@@ -409,6 +456,20 @@ let bind = (inputFun, context) => {
    return inputFun.apply(context, args);  
   }
 }
+```
+Example usage of bind:
+```javascript
+var module = {
+  x: 81,
+  getX: function() { console.log(this.x) }
+};
+
+module.getX(); // 81
+
+var retrieveX = module.getX;
+retrieveX(); // undefiend
+var boundGetX = retrieveX.bind(module);
+boundGetX(); // 81
 ```
 
 
