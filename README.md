@@ -798,6 +798,48 @@ document.querySelector('.display_class_one').classList.remove('active');
 // this adds to this line <div class='display_class_two active' /> .... </div>
 document.querySelector('.display_class_two').classList.add('active');
 ```
+7. Emptying multiple display values by using class name
+```html
+<div>
+  <input type="text" class="add__description" placeholder="Add description">
+  <input type="number" class="add__value" placeholder="Value">
+</div>
+```
+Then we can use general querySelector for all
+```javascript
+// this will be list
+let fields = document.querySelectorAll('.add__description'+','+'.add__value');
+// converting list into array by using array prototype method slice ( tricking )
+let fieldArray = Array.prototype.slice.call(fields);
+// setting display values to empty
+fieldArray.forEach((domElement) => {
+  domElement.value = '';
+})
+```
+
+8. Adding list element to DOM
+```html
+<p class='add_list'>
+  <li>First value</li>
+  <li>Second value</li>
+  <!-- new value will be added here -->
+<p>
+```
+Then we can use `insertAdjacentHTML` with `beforeend` to add the list element.
+```javascript
+let newHtml = '<li>Adding new values<li>'
+document.querySelector('.add_list').insertAdjacentHTML('beforeend', newHtml);
+```
+
+9. Handling `keypress` for enter
+```javascript
+document.addEventListener('keypress', keypressHandle);
+let keypressHandle = (event) => {
+  if(event.key === 13){
+    console.log(' Enter key is pressed (key code is 13)')
+  }
+}
+```
 
 ### Debouncing
 
