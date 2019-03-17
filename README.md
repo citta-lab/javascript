@@ -559,9 +559,47 @@ let mark = Object.create(personPrototype, {
 });
 ```
 
-### 15. Destructuring
+### 15. Class
+In javascript, writing class is syntactic sugar on basic functional constructor. To illustrate the concept we can create ES5 way and ES6 way of using `new` keyword.
 
-#### 15.1 Destructuring in Arrays
+#### 15.1 ES5
+```javascript
+function Person(name, age){
+    this.name = name;
+    this.age = age;
+}
+
+Person.prototype.displayBirthYear = function(){
+    return 2019 - this.age;
+}
+
+
+let tom = new Person('Tom A', 34);
+console.log(tom); // Person { name: 'Tom A', age: 34 }
+console.log(tom.displayBirthYear()); // 1985
+```  
+
+### 15.2 ES6
+```javascript
+class Human {
+    constructor(name, age){
+        this.name = name;
+        this.age = age;
+    }
+
+    isAdult(){
+        return this.age > 21 ? "Yep, let him drink" : `Sorry, he is just ${this.age}`
+    }
+}
+
+let bob = new Human('Bob S', 21);
+console.log(bob); //Human { name: 'Bob S', age: 21 }
+console.log(bob.isAdult()); //Sorry, he is just 21
+```
+
+### 16. Destructuring
+
+#### 16.1 Destructuring in Arrays
 Instead of looping or retrieving values by it's index, we can make use of ES6 syntax of Destructuring like below,
 ```javascript
 // Old way
@@ -575,7 +613,7 @@ console.log(name); // bob
 console.log(age); // 23
 ```
 
-#### 15.2 Destructuring in Object
+#### 16.2 Destructuring in Object
 
 Similar to array we can make use of destructing in object as mentioned below,
 ```javascript
@@ -593,7 +631,7 @@ console.log(a); // Engineer
 console.log(b); // ABC
 ```
 
-### 16. Spread Operator ( i.e ... )
+### 17. Spread Operator ( i.e ... )
 Takes an Array and transforms into single values. Idea of spread operator is to unwind the elements without going through the loop or using apply to bind the object with function execution. To understand better we can start with ES5 way of writing generic function to add numbers and using `apply` to execute the function in given ( example array ) context. i.e
 
 >> used in function call
@@ -605,14 +643,14 @@ function add(a,b,c,d){
 }
 ```
 
-#### 16.1 ES5 way
+#### 17.1 ES5 way
 ```javascript
 let array = [ 2,1,3,4];
 // this or null can be used as we are referring the window context
 let total = add.apply(this, array); // 10
 ```
 
-#### 16.2 ES6 Way
+#### 17.2 ES6 Way
 ```javascript
 let total = add(...array); // 10
 
@@ -621,14 +659,14 @@ let secondArray = [10,11,12];
 let final = [...array, ...secondArray]; // 2,1,3,4,10,11,12
 ```
 
-### 17. Rest Parameter
+### 18. Rest Parameter
 Used to pass the ( exact opposite of spread ) many values into one variable. Example, in spread we distribute the array elements and here we build an array from distributed elements.
 
 >> used in function declaration
 
 Example: function to print the current age of one or many peoples birth year. Since the functions has to take any number of arguments we can make use of in built `arguments` from ES5 which outputs array like object ( not an array ) and we can convert it to an array using `Array.prototype.slice.call()`.
 
-17.1 ES5 (instead of rest parameter)
+18.1 ES5 (instead of rest parameter)
 ```javascript
 function currentAge(){
   var args = arguments;
@@ -640,7 +678,7 @@ function currentAge(){
 
 currentAge(1998, 1994, 1899);
 ```
-17.2 ES6 (rest parameter)
+18.2 ES6 (rest parameter)
 ```javascript
 function currentAge(...years){
   console.log(years); // [1998, 1994, 1899]
