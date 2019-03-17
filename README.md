@@ -22,7 +22,7 @@ playground: https://jscomplete.com/repl/
 Class type. Also javascript is extremely dynamic so we can define the property of an object and can use as interface.
 16. `Polymorphism`: Ability to call the same method on different objects and each behave different is Polymorphism. We can make use of `ES6` extends property to Polymorphism. Example `class Manager extends Person`. Now we can overwrite method defined in `Person` class which will behave different when `let myManager = new Manager();` and `myManager.sameMethod()` is called.
 17. Interpolation: we can make use of tick symbol and curly braces along with dollar symbol to build a interpolated string with values. Example: ` `You got a ${grade} (${cal}%)`;  `
-18. What is `[object Object]` ? whenever we are trying to `alert` an object (`let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.
+18. What is `[object Object]` ? whenever we are trying to `alert` an object (`let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.`
 
 
 ### Parts Unknown:
@@ -559,6 +559,101 @@ let mark = Object.create(personPrototype, {
 });
 ```
 
+### 15. Destructuring
+
+#### 15.1 Destructuring in Arrays
+Instead of looping or retrieving values by it's index, we can make use of ES6 syntax of Destructuring like below,
+```javascript
+// Old way
+let array = ['bob', 23];
+let name = array[0]; // Bob
+let age = array[1]; // 23
+
+// New way
+let [name, age] = [ 'bob', 23];
+console.log(name); // bob
+console.log(age); // 23
+```
+
+#### 15.2 Destructuring in Object
+
+Similar to array we can make use of destructing in object as mentioned below,
+```javascript
+let obj = {
+  job: 'Engineer',
+  company: 'ABC'
+}
+
+let {job, company} = obj;
+console.log(job); // Engineer
+
+// using alias
+let {job: a, company: b} = obj;
+console.log(a); // Engineer
+console.log(b); // ABC
+```
+
+### 16. Spread Operator ( i.e ... )
+Takes an Array and transforms into single values. Idea of spread operator is to unwind the elements without going through the loop or using apply to bind the object with function execution. To understand better we can start with ES5 way of writing generic function to add numbers and using `apply` to execute the function in given ( example array ) context. i.e
+
+>> used in function call
+
+```javascript
+// regular function to add
+function add(a,b,c,d){
+  return a+b+c+d;
+}
+```
+
+#### 16.1 ES5 way
+```javascript
+let array = [ 2,1,3,4];
+// this or null can be used as we are referring the window context
+let total = add.apply(this, array); // 10
+```
+
+#### 16.2 ES6 Way
+```javascript
+let total = add(...array); // 10
+
+// joining arrays
+let secondArray = [10,11,12];
+let final = [...array, ...secondArray]; // 2,1,3,4,10,11,12
+```
+
+### 17. Rest Parameter
+Used to pass the ( exact opposite of spread ) many values into one variable. Example, in spread we distribute the array elements and here we build an array from distributed elements.
+
+>> used in function declaration
+
+Example: function to print the current age of one or many peoples birth year. Since the functions has to take any number of arguments we can make use of in built `arguments` from ES5 which outputs array like object ( not an array ) and we can convert it to an array using `Array.prototype.slice.call()`.
+
+17.1 ES5 (instead of rest parameter)
+```javascript
+function currentAge(){
+  var args = arguments;
+  var argsArray = Array.prototype.slice.call(args); // ways to convert it to an array [1998, 1994, 1899]
+  argsArray.forEach(function(year){
+    console.log(2019-year);
+  })
+}
+
+currentAge(1998, 1994, 1899);
+```
+17.2 ES6 (rest parameter)
+```javascript
+function currentAge(...years){
+  console.log(years); // [1998, 1994, 1899]
+  years.forEach((year) => {
+    console.log(2019-year)
+  })
+}
+
+currentAge(1998, 1994, 1899);
+```
+
+
+
 
 
 ### Deep Dive:
@@ -595,9 +690,6 @@ In typical object oriented programming (ex: java) when we do inheritance we are 
 Example: If `Vehicle` is a parent class then `car` and `bus` can be child class inherited from it. In javascript we can make this happen by `Vehile.prototype`.
 
 >> In JavaScript when we create the object it does not copy the properties or behavior, it creates a link. Usage of Object.create() to achieve classical inheritance.
-
-
-
 
 
 #### 2. Array Functions
@@ -694,8 +786,34 @@ var final = check.reduce((accumulatedValue, eachValue) => {
 },0)
 console.log(final)
 ```
+
+2.4 Finding element and/or Index in an Array.
+If we are interested in finding the index of a value and maybe just the value we can achieve in ES5 or ES6 way like
+
+2.4.1 ES5
+```javascript
+let ages = [12,3,4,17,13,11,21];
+
+//Finding index of age greater than 18
+let validateAges = ages.map((age) => age > 18); // [false, false, false, false, false, false, true];
+let index = validateAges.indexOf(true); // 6
+let value = ages[index]; // 21
+```
+
+2.5.1 ES6
+```javascript
+let ages = [12,3,4,17,13,11,21];
+
+//Finding index of age greater than 18
+let index = ages.findIndex((age) => age > 18); //6
+let value = ages.find((age) => age > 18); // 21
+```
+
+
 #### 3. Arrow Function:
-Arrow functions are replacement of normal functions which also solves the problem of `this` in javascript. If we use `this` inside the arrow function then it will always be in the context. Simple example of normal vs arrow function is.
+
+3.1 What is Arrow Function:
+Arrow functions are replacement of normal functions which also solves the problem of `this` in javascript. If we use `this` inside the arrow function then it will always be in the context (references the lexical scope instead of global context). Simple example of normal vs arrow function is.
 ```javascript
 // normal function
 function calAge(number){
@@ -707,6 +825,81 @@ const calAge = (number) => {
 }
 ```
 In both scenario we can call the function by `calAge(12);`. However this is further can be rewritten in single line using arrow function as const `const calAge = (number) => number * 2;` or `const calAge = number => number *2;`.
+
+3.2 How Arrow function solves the problem:
+To understand this better, we will create an object which defines few properties and a method. If the method uses any call back functions when the function's `this` object/keyword will refer to window object.
+>> Method defined in an object will have `this` bound to the object itself. However if we define function outside of the method or with in an object (not as an method) then by nature function's `this` will refer to window object.
+
+Examples:
+
+3.2.1: `this` in callback functions:
+Let say we have an button when the user clicks we want to print details from the user object
+```html
+<input type='button' class='user_detail'>Click Me</button>
+```
+ES5 version: Handling the click ( but this will be problem )
+```javascript
+let user = {
+  name: 'bob',
+  age: 24
+  details: function(){
+    console.log(this.name+ ' of age '+this.age+ ' says hello !!');  // works fine as it's part of method
+    document.querySelector('.user_detail').addEventListner('click', function(){
+      console.log(" You clicked for user "+this.name+ ' of age '+this.age); // prints undefined as it's an function (callback function in this case) not method
+    })
+  }
+}
+
+user.details(); // registers the click event
+```
+ES6 version:
+```javascript
+let user = {
+  name: 'bob',
+  age: 24
+  details: function(){
+    console.log(this.name+ ' of age '+this.age+ ' says hello !!');  // works fine as it's part of method
+    document.querySelector('.user_detail').addEventListner('click', () => {
+      console.log(" You clicked for user "+this.name+ ' of age '+this.age); // works fine as arrow function will add's this context from lexical scope.
+    })
+  }
+}
+
+user.details(); // registers the click event
+```
+
+3.2.2: `this` in callback functions
+```javascript
+//1. functional constructor
+function Person(name){
+  this.name = name;
+}
+
+//2. Adding method to Person function
+Person.prototype.myFriends = function(friends){
+  console.log(' I am : '+this.name); // should work
+
+  friends.map(function(el){
+    console.log('Mr.'+ el + ' is friend with '+this.name); // this.name will be undefined
+  })
+}
+
+let friends = ['Tom', 'Ram', 'Ben'];
+let newperson = new Person('Bob');
+newperson.myFriends(friends);
+```
+To make this work we can use `call` or `bind` or `apply`. Hence we want to execute after we will use `bind`. Then the `map` function will be come,
+```javascript
+// bind(this) will link the lexical `this` scope from outer method
+friends.map(function(el){
+  console.log('Mr.'+ el + ' is friend with '+this.name); // this.name will be undefined
+}.bind(this));
+
+// using array function we can rewrite the callback as mentioned below so `this` will refer to lexical scope
+friends.map((el)=>{
+  console.log('Mr.'+ el + ' is friend with '+this.name); // this.name will be undefined
+})
+```
 
 ### DOM manipulation from javascript
 
@@ -809,8 +1002,9 @@ Then we can use general querySelector for all
 ```javascript
 // this will be list
 let fields = document.querySelectorAll('.add__description'+','+'.add__value');
-// converting list into array by using array prototype method slice ( tricking )
+// ES5 converting list into array by using array prototype method slice ( tricking )
 let fieldArray = Array.prototype.slice.call(fields);
+// in ES6, let fieldArray = Array.from(fields); will convert node list into an array.
 // setting display values to empty
 fieldArray.forEach((domElement) => {
   domElement.value = '';
@@ -1013,4 +1207,4 @@ The value of the result does change for the same passed arguments. This is one e
 
 ### Reference
 1. Inheritance : https://codeburst.io/javascript-inheritance-25fe61ab9f85
-2.
+2. Event Loop and How Callback works : https://www.youtube.com/watch?v=8aGhZQkoFbQ
