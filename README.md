@@ -939,6 +939,153 @@ friends.map((el)=>{
 })
 ```
 
+#### 4. Asynchronous Functions
+
+javascript runs the code synchronous fashion. The best example is as mentioned below, in the next step we can convert the synchronous process into Asynchronous by adding `setTimeout` to execute the function after certain time. Important: `setTimeout` is used to simulate the asynchronous process here.
+
+4.1 Simulation of Synchronous to Asynchronous
+```javascript
+/**
+ * Step 1: Example of Synchronous Call
+ */
+
+ function secondCaller(){
+     console.log("Second caller is called");
+ }
+
+ function firstCaller(){
+     console.log("First caller is called" );
+     secondCaller();
+     console.log("Ending calls");
+ }
+
+ firstCaller();
+ // First caller is called
+ // Second caller is called
+ // Ending calls
+```
+Converting this to asynchronous calls
+```javascript
+function secondCaller(){
+    setTimeout(() => {
+       console.log("Second caller is called");
+    }, 1000)
+}
+
+function firstCaller(){
+    console.log("First caller is called" );
+    secondCaller();
+    console.log("Ending calls");
+}
+
+firstCaller();
+// First caller is called
+// Ending calls
+// Second caller is called
+```
+
+4.2 Asynchronous nested calls ( callback hell )
+The idea is to simulate the asynchronous calls with dummy data. In the firs step, we will be calling list of employee id's and based on the employee id we will make next call to fetch employee details ( some particular employee ). In third step, based on the employee details we will fetch company details. This asynchronous process has to be nested as one result depends on the other, this is `callback hell` or `nested callbacks` looks like.
+
+```javascript
+/**
+ * Example of Asynchronous Call
+ */
+function getEmployeeDetails(){
+    // step 1: fetch employee id's from some service call
+    setTimeout(() => {
+        const empIds = [ 21, 34, 51, 60];
+        console.log(' 1. Received employee Ids : '+empIds);
+
+        // step 2: fetch employee details based on first call
+        setTimeout((empId) => {
+            const empDetail = { name: 'Bob', companyId: 0004 , age: 34, title: 'Software Engineer' };
+            console.log(' 2. Employee details for empId : '+empId+ ' is : '+JSON.stringify(empDetail));
+
+            // step 3: fetch company details based on last call
+            setTimeout((compId) => {
+                const compDetail = { id: 0004, name: 'Facebook', type: 'Social Media'}
+                console.log(' 3. Company details for compID : '+compId+ ' from employee name : '+empDetail.name)
+
+            }, 1800, empDetail.companyId)
+        }, 1500, empIds[1])
+    }, 1000)
+}
+
+getEmployeeDetails();
+
+/** OUTPUT RESULT **/
+// 1. Received employee Ids : 21,34,51,60
+// 2. Employee details for empId : 34 is : {"name":"Bob","companyId":4,"age":34,"title":"Software Engineer"}
+// 3. Company details for compID : 4 from employee name : Bob
+```
+
+4.3 Promises
+In the earlier 4.2 section we had to do nested callbacks ( i.e callback hell ) to retreive data based on previous asynchronous call result. To resolve this nested nature, ES6 introduces `promises`.
+>> Promise is an object which keeps track whether an event has happened or not (i.e pending or resolved )
+
+Promise has two state,
+- Pending ( before the event is happened )
+- Resolved ( after the event is happened )
+  -- Fulfilled
+  -- Rejected
+
+```javascript
+// Promise #1: Only focus on fetching the list of employee id's
+let empIds = new Promise((resolve, reject) => {
+    // simulating delayed response using settimeout & adding the result in resolve
+    setTimeout(() => {
+        console.log(' 1. First fetch to get all emp ids ')
+        resolve([21, 34, 51, 60]);
+    }, 1000)
+})
+
+// Promise #2: Focuss on fetching employee details
+let empDetails = (empId) => {
+    return new Promise((resolve, reject) => {
+        setTimeout((ID) => {
+            console.log(' 2. Called with empID : '+ID);
+            resolve({ name: 'Bob', companyId: 0004 , age: 34, title: 'Software Engineer' })
+        }, 1000, empId)
+    })
+}
+
+// Promise #3: Focuss on fetching company details
+let comDetails = (compId) => {
+    return new Promise((resolve, reject) => {
+        setTimeout((ID) => {
+            console.log(' 3. Called with compID : '+ID);
+            resolve({ id: 0004, name: 'Facebook', type: 'Social Media'})
+        }, 1000, compId)
+    })
+}
+
+// Step 1: call then on `empIds` once resolved
+empIds.then((ids) => {
+    return empDetails (ids[2]);
+})
+// Step 2: returns fulfilled second promise with employee details
+.then((empDetails) => {
+    return comDetails (empDetails.companyId);
+})
+// Step 3: returns fulfilled third promise with company details
+.then((comDetails) => {
+    console.log(' 4. Final company details : '+JSON.stringify(comDetails))
+})
+.catch((error) => {
+    console.log('Error')
+})
+
+/***   OUTPUT  ***/
+ // 1. First fetch to get all emp ids
+ // 2. Called with empID : 51
+ // 3. Called with compID : 4
+ // 4. Final company details : {"id":4,"name":"Facebook","type":"Social Media"}
+```
+This separates all the `promises` from that of the `then` and makes it more readable than `diamond` callback hell.
+
+
+
 ### DOM manipulation from javascript
 
 #### Event Delegation:
