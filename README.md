@@ -1021,7 +1021,7 @@ getEmployeeDetails();
 ```
 
 4.3 Promises
-In the earlier 4.2 section we had to do nested callbacks ( i.e callback hell ) to retreive data based on previous asynchronous call result. To resolve this nested nature, ES6 introduces `promises`.
+In the earlier 4.2 section we had to do nested callbacks ( i.e callback hell ) to retrieve data based on previous asynchronous call result. To resolve this nested nature, ES6 introduces `promises`.
 >> Promise is an object which keeps track whether an event has happened or not (i.e pending or resolved )
 
 Promise has two state,
@@ -1031,6 +1031,7 @@ Promise has two state,
   -- Rejected
 
 ```javascript
+// PRODUCING PROMISES
 // Promise #1: Only focus on fetching the list of employee id's
 let empIds = new Promise((resolve, reject) => {
     // simulating delayed response using settimeout & adding the result in resolve
@@ -1082,7 +1083,25 @@ empIds.then((ids) => {
  // 3. Called with compID : 4
  // 4. Final company details : {"id":4,"name":"Facebook","type":"Social Media"}
 ```
-This separates all the `promises` from that of the `then` and makes it more readable than `diamond` callback hell.
+This separates all the `promises` from that of the `then` and makes it more readable than `diamond` callback hell. However we still have to handle the promises using nested `then`. Instead of this latest ES related async and await functionality.
+
+4.4 Async & Await
+```javascript
+// NOTE: refer to same promises as above, only then part is updated
+async function getEmployeeDetails () {
+    const ids = await empIds;
+    console.log(' a. all ids : '+ids);
+    const empDetail = await empDetails(ids[2]);
+    console.log(' b. employee detail : '+JSON.stringify(empDetail));
+    const comDetail = await comDetails(empDetail.companyId);
+    // console.log(' c. comDetail detail : '+JSON.stringify(comDetail));
+    return comDetail;
+}
+
+getEmployeeDetails().then((result) => {
+    console.log(' Final company details : '+JSON.stringify(result))
+})
+```
 
 
 
