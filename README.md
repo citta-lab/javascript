@@ -985,6 +985,7 @@ firstCaller();
 ```
 
 4.2 Asynchronous nested calls ( callback hell )
+
 The idea is to simulate the asynchronous calls with dummy data. In the firs step, we will be calling list of employee id's and based on the employee id we will make next call to fetch employee details ( some particular employee ). In third step, based on the employee details we will fetch company details. This asynchronous process has to be nested as one result depends on the other, this is `callback hell` or `nested callbacks` looks like.
 
 ```javascript
@@ -1021,6 +1022,7 @@ getEmployeeDetails();
 ```
 
 4.3 Promises
+
 In the earlier 4.2 section we had to do nested callbacks ( i.e callback hell ) to retrieve data based on previous asynchronous call result. To resolve this nested nature, ES6 introduces `promises`.
 >> Promise is an object which keeps track whether an event has happened or not (i.e pending or resolved )
 
@@ -1086,6 +1088,7 @@ empIds.then((ids) => {
 This separates all the `promises` from that of the `then` and makes it more readable than `diamond` callback hell. However we still have to handle the promises using nested `then`. Instead of this latest ES related async and await functionality.
 
 4.4 Async & Await
+
 ```javascript
 // NOTE: refer to same promises as above, only then part is updated
 async function getEmployeeDetails () {
@@ -1103,7 +1106,73 @@ getEmployeeDetails().then((result) => {
 })
 ```
 
+4.5 Fetch
 
+Asynchronous api used to call asynchronous calls, which is much simpler than `xmlhttprequest` which is natively supported by all browser. Fetch API returns a `promise` which is of type `ReadableStreams`. So we then need to use the `json()` method to convert this readable streams to `json` which results in one more `promise`. So example skeleton and real example below,
+
+4.5.1 Fetch Structure
+```javascript
+fetch('url')
+.then((result) => {
+  return result.json(); // conversion happens asynchronously
+})
+.then((data) => {
+  console.log(data); // final result
+})
+.catch((error) => {
+  console.log(error);
+})
+```
+
+4.5.2 Fetch Example
+```javascript
+fetch('https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/2487956/')
+.then((result) => {
+    return result.json();
+})
+.then((data) => {
+    console.log(data)
+})
+.catch((error) => {
+    console.log(error);
+})
+```
+Hence we are not running on the server and metaweather doesn't handle CORS we are using the proxy cors-anywhere to fake the CORS and then calling the metaweather url.
+
+4.5.3 Fetch with Async Await
+```javascript
+/**
+ * Fetch with Promise Example
+ * ( Using the same fetch example as 4.5.2 but wrapping with a function body )
+ * @param {number} locationId 
+ */
+function getWeatherData(locationId){
+    fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationId}/`)
+    .then((result) => {
+        return result.json();
+    })
+    .then((data) => {
+        console.log(data)
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+}
+
+getWeatherData(2487956);
+
+/**
+ * Fetch with Async Await ( same example as above )
+ * @param {number} locationId
+ */
+async function getWeatherDataAW(locationId) {
+    const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationId}/`);
+    const data = await result.json();
+    console.log(data);
+}
+
+getWeatherDataAW(2487956);
+```
 
 ### DOM manipulation from javascript
 
