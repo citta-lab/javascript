@@ -1088,7 +1088,6 @@ empIds.then((ids) => {
 This separates all the `promises` from that of the `then` and makes it more readable than `diamond` callback hell. However we still have to handle the promises using nested `then`. Instead of this latest ES related async and await functionality.
 
 4.4 Async & Await
-
 ```javascript
 // NOTE: refer to same promises as above, only then part is updated
 async function getEmployeeDetails () {
@@ -1105,7 +1104,6 @@ getEmployeeDetails().then((result) => {
     console.log(' Final company details : '+JSON.stringify(result))
 })
 ```
-
 4.5 Fetch
 
 Asynchronous api used to call asynchronous calls, which is much simpler than `xmlhttprequest` which is natively supported by all browser. Fetch API returns a `promise` which is of type `ReadableStreams`. So we then need to use the `json()` method to convert this readable streams to `json` which results in one more `promise`. So example skeleton and real example below,
@@ -1144,7 +1142,7 @@ Hence we are not running on the server and metaweather doesn't handle CORS we ar
 /**
  * Fetch with Promise Example
  * ( Using the same fetch example as 4.5.2 but wrapping with a function body )
- * @param {number} locationId 
+ * @param {number} locationId
  */
 function getWeatherData(locationId){
     fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationId}/`)
