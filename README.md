@@ -1163,11 +1163,15 @@ getWeatherData(2487956);
  * Fetch with Async Await ( same example as above )
  * @param {number} locationId
  */
-async function getWeatherDataAW(locationId) {
-    const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationId}/`);
-    const data = await result.json();
-    console.log(data);
-}
+ async function getWeatherDataAW(locationId) {
+     try{
+         const result = await fetch(`https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/${locationId}/`);
+         const data = await result.json();
+         console.log(data);
+     }catch(error){
+         console.log(error)
+     }
+ }
 
 getWeatherDataAW(2487956);
 ```
