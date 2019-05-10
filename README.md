@@ -1310,6 +1310,46 @@ let keypressHandle = (event) => {
 }
 ```
 
+10. Retrieving and inserting value in form
+```html
+<div class='container'>
+		<form class="search">
+			<input type="text" class="search__field" placeholder="Search for things">
+			<button class="btn search__btn">
+				<span>Search</span>
+			</button>
+		</form>
+	</div>
+<div class="insert__text"></div>
+```
+JavaScript part
+```javascript
+/**
+ * STEP 1:
+ * Extract values from the DOM
+ */
+const listenSearchBox = document.querySelector(".search__field");
+const listenSearchClick = document.querySelector(".search");
+
+/**
+ * STEP 2:
+ * Handle search if there is value typed and button is clicked.
+ */
+listenSearchClick.addEventListener("submit", event => {
+  event.preventDefault();
+  if (listenSearchBox.value) {
+    document.querySelector(".insert__text").innerHTML = `
+    <div>
+      <h4> You typed : </h4>
+      <span>${listenSearchBox.value}</span>
+    </div>
+    `;
+  }
+});
+```
+Code sample example (here)[https://codesandbox.io/s/yvj21pmo3j]
+
+
 ### Debouncing
 
  a debounce function is essential to ensuring a given task doesn't fire so often that it bricks browser performance. Example would be avoid calling restAPI for every user keystroke instead call when the user pauses at once or better way to handle onScroll events. To understand better, we have `simulateEvents` function which will call `logger` function every `100` milliseconds until the `clearTimeout` is called at `2000`th milliseconds. So we would expect some (2000/100 = 20) events generated when we call simulateEvents().
