@@ -48,7 +48,7 @@ let gradeCalculator = function(total, scored){
 gradeCalculator(20,5)
 ```
 
-3. Trimming in the "TITLE" for display : For a given array of object which consist of short and/or long title. we would like to build an array of title with trimmed version if it is greater than certain length.
+3. Trimming in the "TITLE" for display : For a given array of object which consist of short and/or long title. we would like to build an array of title with trimmed version (example: `Subway taste...`) if it is greater than certain length.
 ```javascript
 const data = [
     {
