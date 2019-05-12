@@ -47,3 +47,42 @@ let gradeCalculator = function(total, scored){
 
 gradeCalculator(20,5)
 ```
+
+3. Trimming in the "TITLE" for display : For a given array of object which consist of short and/or long title. we would like to build an array of title with trimmed version if it is greater than certain length.
+```javascript
+const data = [
+    {
+        title: 'Please eat donut',
+        place: 'Dunkin',
+    },
+    {
+        title: 'Subway taste better than you can ever image',
+        place: 'Subway'
+    }
+];
+
+const trimmedTitle = (data, limit=17) => {
+
+    let newTitleArray = data.map((x) => {        
+        const newTitle = [];
+
+        if(x.title.length > limit){
+            x.title.split(' ').reduce((acc,cur) => {
+                if(acc+cur.length < limit){
+                    newTitle.push(cur);
+                }
+                return acc + cur.length;
+            },0)
+
+            return `${newTitle.join(' ')}...`
+        }
+
+        return x.title;
+    })
+
+    return newTitleArray
+}
+
+let test = trimmedTitle(data);
+console.log(test)
+```
