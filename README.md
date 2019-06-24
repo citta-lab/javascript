@@ -23,6 +23,9 @@ Class type. Also javascript is extremely dynamic so we can define the property o
 16. `Polymorphism`: Ability to call the same method on different objects and each behave different is Polymorphism. We can make use of `ES6` extends property to Polymorphism. Example `class Manager extends Person`. Now we can overwrite method defined in `Person` class which will behave different when `let myManager = new Manager();` and `myManager.sameMethod()` is called.
 17. Interpolation: we can make use of tick symbol and curly braces along with dollar symbol to build a interpolated string with values. Example: ` `You got a ${grade} (${cal}%)`;  `
 18. What is `[object Object]` ? whenever we are trying to `alert` an object (`let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.`
+19. Function short form: `array.forEach((element) => someFunction(element));` can be written as `array.forEach(someFunction)`. Where someFunction syntax looks like `const someFunction = (element) => { "do something" }`
+20. Logic to get `#` related string / value from the browser path. `const value = window.location.hash`; Note: `hashchange` listner can be used to trigger event based on url hash change.
+21. In javascript, every function is an instance of Function. Hence we can use Function as constructor (see #19 section for example ).
 
 
 ### Parts Unknown:
@@ -690,6 +693,12 @@ function currentAge(...years){
 currentAge(1998, 1994, 1899);
 ```
 
+### 19. Functions as constructor 
+Functions can be used as constructor starts by taking parameters and body of the function. 
+```javascript 
+var multiplier = new Function('x', 'y', 'return x * y');
+multiplier(2, 3); // 6
+```
 
 
 
@@ -1518,6 +1527,17 @@ var value = array.splice(0,2)
 console.log(" third time : "+value) //Jill
 ```
 The value of the result does change for the same passed arguments. This is one example for impure function.
+
+5. Handling multiple event handler
+If we are needing to trigger or call same function based on two different event then we can rewrite as
+```javascript
+// Before
+window.addEventListner('hashchange', testFunction);
+window.addEventListner('load', testFunction);
+
+// Simplified
+['hashchange', 'load'].forEach(event => window.addEventListner(event, testFunction))
+```
 
 
 ### Reference
