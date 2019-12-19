@@ -26,6 +26,7 @@ Class type. Also javascript is extremely dynamic so we can define the property o
 19. Function short form: `array.forEach((element) => someFunction(element));` can be written as `array.forEach(someFunction)`. Where someFunction syntax looks like `const someFunction = (element) => { "do something" }`
 20. Logic to get `#` related string / value from the browser path. `const value = window.location.hash`; Note: `hashchange` listner can be used to trigger event based on url hash change.
 21. In javascript, every function is an instance of Function. Hence we can use Function as constructor (see #19 section for example ).
+22. Use `monomorphic` approach to optimize the code inline. i.e try to pass same datastructured arguments to methods so the engine can use cached `shape` (i.e hidden class) to refer the property value instead of creating or chaining shapes.
 
 
 ### Parts Unknown:
@@ -693,9 +694,9 @@ function currentAge(...years){
 currentAge(1998, 1994, 1899);
 ```
 
-### 19. Functions as constructor 
-Functions can be used as constructor starts by taking parameters and body of the function. 
-```javascript 
+### 19. Functions as constructor
+Functions can be used as constructor starts by taking parameters and body of the function.
+```javascript
 var multiplier = new Function('x', 'y', 'return x * y');
 multiplier(2, 3); // 6
 ```
@@ -1231,9 +1232,9 @@ javascript can be used to extract or manipulate document object property. Lets t
 ```
 1. get value 90 by id
 ```javascript
-let value = document.getElementById('score').innerHTML;
+let value = document.getElementById('score').innerHTML; // gets the html tags between the score id parent.
 //OR
-let value = document.querySelector('#score').textContent;
+let value = document.querySelector('#score').textContent; // gets only the text
 ```
 
 2. update text value by id
@@ -1296,6 +1297,7 @@ fieldArray.forEach((domElement) => {
 ```
 
 8. Adding list element to DOM
+We can make use of `insertAdjacentHTML` api to insert data based on our need. It takes first argument as position such as `beforebegin`, `afterbegin`, `beforeend` and `afterend`. The second argument would be html content.
 ```html
 <p class='add_list'>
   <li>First value</li>
@@ -1358,6 +1360,19 @@ listenSearchClick.addEventListener("submit", event => {
 ```
 Code sample example (here)[https://codesandbox.io/s/yvj21pmo3j]
 
+11. Removing elements from DOM.
+We can make use of `removeChild()` and/or `remove()` api to remove the interested node. If we use `removeChild` then we need to refer the parent. Example:
+
+```javascript
+const parent = document.querySelector('h1'); // gets first DOM element with tag h1
+const child = document.firstElementChild(); // gives the valid node and if we use firstChild() will give empty space if any.
+parent.removeChild(child);
+```
+Instead of this we can use `remove` directly
+```javascript
+const directRemove = document.querySelector('h2');
+directRemove.remove(); // removes first h1 from the page
+```
 
 ### Debouncing
 
