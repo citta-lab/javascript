@@ -1553,6 +1553,15 @@ window.addEventListner('load', testFunction);
 // Simplified
 ['hashchange', 'load'].forEach(event => window.addEventListner(event, testFunction))
 ```
+6. What is known bug in javascript and why ?
+`null` is a primitive type but when typeof is used it prints `Object` which is wrong. javascript inventor admitted the mistake happened during early javascript building ( version called Mocha ).
+
+7. What is typeof(typeof(value)) and why ?
+```javascript
+const state = {};
+typeof(typeof(state)); // string  
+```
+Because at first typeof(object); it will return string representation of the type. So typeof(string) is 'String'.
 
 
 ### Reference
