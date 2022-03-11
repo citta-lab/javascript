@@ -27,6 +27,8 @@ Class type. Also javascript is extremely dynamic so we can define the property o
 20. Logic to get `#` related string / value from the browser path. `const value = window.location.hash`; Note: `hashchange` listner can be used to trigger event based on url hash change.
 21. In javascript, every function is an instance of Function. Hence we can use Function as constructor (see #19 section for example ).
 22. Use `monomorphic` approach to optimize the code inline. i.e try to pass same datastructured arguments to methods so the engine can use cached `shape` (i.e hidden class) to refer the property value instead of creating or chaining shapes.
+23. Deleting a property from the object would be like `delete object.property-name` will manipulate the original object.
+
 
 
 ### Parts Unknown:
