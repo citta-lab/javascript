@@ -4,12 +4,36 @@
 
 | No. | Questions |
 |---- | ---------
-|1  | [Create Object with Public and Private Variable in JavaScript](#create-object-with-public-and-private-variable-in-javascript) |
-|2  | [Create Class with Public and Private Variable in JavaScript](#create-class-with-public-and-private-variable-in-javascript) |
+|1  | [Using 'new' keyword in function vs class](#using-new-keyword-in-function-vs-class) |
+|2  | [Create Object with Public and Private Variable in JavaScript](#create-object-with-public-and-private-variable-in-javascript) |
+|3  | [Create Class with Public and Private Variable in JavaScript](#create-class-with-public-and-private-variable-in-javascript) |
 |3  | [What is prototype chain](#what-is-a-prototype-chain)|
 |4  | [What is the difference between Call, Apply and Bind](#what-is-the-difference-between-call-apply-and-bind)|
 
-1. ### Create Object with Public and Private Variable in JavaScript
+1. ### Using 'new' keyword in function vs class 
+Unlike other languages 'new' keyword doesnt' instantiate the class in javascript rather used purely to create a 'constructor' call. Hence we can do use the `new` key word both in functions and/or class.
+```js
+/** functional way of instantiating  */
+function foo() {
+  console.log("I'm function foo ");
+}
+var check = new foo();
+console.log(check); // I'm function foo
+
+/** class way of instantiating  */
+class boo {
+  constructor() {
+    console.log("I'm class boo");
+  }
+}
+
+const booCheck = new boo();
+console.log(booCheck); // I'm class boo
+
+
+```
+
+2. ### Create Object with Public and Private Variable in JavaScript
 
 When we create an object and define property we will see prototype chain and **pronto** linking in the created Object.
 
@@ -39,7 +63,7 @@ console.log(person.privateNumber); // undefined
 console.log(getPhoneNumber()()); // 816-224-3669
 ```
 
-2. ### Create Class with Public and Private Variable in JavaScript
+3. ### Create Class with Public and Private Variable in JavaScript
 
 This is the re-implementation of above example in ES6 syntax. We are making use of `#variableName` to define private variable which cannot be accessed from class instance.
 

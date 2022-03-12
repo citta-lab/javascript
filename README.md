@@ -22,7 +22,7 @@ playground: https://jscomplete.com/repl/
 Class type. Also javascript is extremely dynamic so we can define the property of an object and can use as interface.
 16. `Polymorphism`: Ability to call the same method on different objects and each behave different is Polymorphism. We can make use of `ES6` extends property to Polymorphism. Example `class Manager extends Person`. Now we can overwrite method defined in `Person` class which will behave different when `let myManager = new Manager();` and `myManager.sameMethod()` is called.
 17. Interpolation: we can make use of tick symbol and curly braces along with dollar symbol to build a interpolated string with values. Example: ` `You got a ${grade} (${cal}%)`;  `
-18. What is `[object Object]` ? whenever we are trying to `alert` an object (`let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.`
+18. What is `[object Object]` ? whenever we are trying to `alert` an object ('let object ={}')then it can't print the readable formatted data. Instead we need to use `object.toString()` or `JSON.stringify(object)`.`
 19. Function short form: `array.forEach((element) => someFunction(element));` can be written as `array.forEach(someFunction)`. Where someFunction syntax looks like `const someFunction = (element) => { "do something" }`
 20. Logic to get `#` related string / value from the browser path. `const value = window.location.hash`; Note: `hashchange` listner can be used to trigger event based on url hash change.
 21. In javascript, every function is an instance of Function. Hence we can use Function as constructor (see #19 section for example ).
@@ -44,12 +44,12 @@ function add(){
 ```
 
 #### 2. Lexical Scope:   
-`Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). During this process the engine looks for local 'Scope' and move on to global 'Scope'.
+`Lexical Scope` the way engine finds the variable declaration during quick compilation (which happens right before runtime). During this process the engine looks for local 'Scope' and move on to global 'Scope'. Answer is 22.
 ```javascript
 var c =1; /* Step 3: i'm available for anyone */
 function parent(){
   var b = c + 1; /* Step 2: RHS lookup for c and didn't find within scope, looks from global scope (i.e 1) */
-  function child(){
+  return function child(){
     var c = 20;
     return b+c;  /* Step 1: RHS lookup done to get b from outer scope (i.e c+1) but c reference was found with in scope (i.e 20)  */
   }
@@ -163,7 +163,7 @@ Using named functions are more beneficial than doing anonymous function expressi
 
 Now the point is what is the use of function expression over declaration ?
 - If we are wanting to do functional composition and/or currying and/or create higher order function then we do need use functional expression.
-- In function expression the left side variable will get hosted first and `undefined` is assigned along with other functions. Unlike in declaration whole function get hoisted.
+- In function expression the left side variable will get hoisted first and `undefined` is assigned along with other functions. Unlike in declaration whole function get hoisted.
 
 7.3 Immediately Invoked Function Expression (IIFE Pattern):   
 
@@ -236,11 +236,8 @@ obj.display(); // prints bob.
 ```
 Similarly, if the function is written outside of an object then it's is called function which references the global object.
 ```javascript
-function newName(){
-  let name = "Mo";
-  console.log(this.name);
-}
-newName(); // returns undefined as this references to global object
+
+
 ```
 
 Always think about `this` execution from the place the function execution is called.Four rules to determine the working nature of `this` keyword in precedence.
