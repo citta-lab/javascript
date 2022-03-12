@@ -30,3 +30,27 @@ console.log(sum(2)(3)(4)(9)());
 let sum = (a) => (b) => b ? sum(a + b) : a;
 console.log(sum(2)(3)(4)());
 ```
+
+# 2. Implement SUM(x)(y)(z) and SUM(x,y,z) in same function
+
+
+
+
+
+# 3. Private Variable 
+
+## 3.1 Create private variable 
+```js
+function getPrivateVariable(){
+    let private = 'private variable value';
+    return function (){
+        return private;
+    }
+}
+
+let value = getPrivateVariable();
+console.log(value());
+```
+# Reference:
+
+- [currying on SUM](https://theanubhav.com/2019/02/03/js-currying-in-interview/#add234-for-endless-number-of-parameters)

@@ -1,12 +1,15 @@
-function sum (x){
-    let result = x;
-    return function resultSum (y) {
-        if(arguments.length){
-            result = result + y;
-            return resultSum
+let person = {
+    name: 'bob',
+    address: '100 swift road, NY',
+    getAddress: function (){
+        console.log(this.address);
+    },
+    getPhoneNumber: function (){
+        let personalNumber = '816-224-3669';
+        return function (){
+            console.log(personalNumber);
         }
-        return result;
     }
 }
 
-console.log(sum(2)(3)(4)(9)());
+console.log(person.getAddress())
