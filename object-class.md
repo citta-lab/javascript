@@ -1,6 +1,15 @@
-# Objects
+# Objects and Class 
 
-## 1. Create Object with Methods & Private Variable
+### Table of Contents
+
+| No. | Questions |
+|---- | ---------
+|1  | [Create Object with Public and Private Variable in JavaScript](#create-object-with-public-and-private-variable-in-javascript) |
+|2  | [Create Class with Public and Private Variable in JavaScript](#create-class-with-public-and-private-variable-in-javascript) |
+|3  | [What is prototype chain](#what-is-a-prototype-chain)|
+|4  | [What is the difference between Call, Apply and Bind](#what-is-the-difference-between-call-apply-and-bind)|
+
+1. ### Create Object with Public and Private Variable in JavaScript
 
 When we create an object and define property we will see prototype chain and **pronto** linking in the created Object.
 
@@ -30,7 +39,7 @@ console.log(person.privateNumber); // undefined
 console.log(getPhoneNumber()()); // 816-224-3669
 ```
 
-## 2. Create Class (ES6 Class) with methods and Private Variable
+2. ### Create Class with Public and Private Variable in JavaScript
 
 This is the re-implementation of above example in ES6 syntax. We are making use of `#variableName` to define private variable which cannot be accessed from class instance.
 
