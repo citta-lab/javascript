@@ -13,6 +13,12 @@
  * function. like `setTimeout(() => object.methodName(), 0)`
  */
 
+/**
+ * ******************************************************************
+ * Using Bind Example:
+ *
+ * ******************************************************************
+ */
 let user = {
   name: "Bob",
   age: 37,
@@ -35,9 +41,11 @@ console.log(newGreet()); // Bob welcomes you
 setTimeout(user.greeting.bind(user), 0); // Bob welcomes you
 
 /**
- *
+ * ******************************************************************
  * Imeplemeting Bind
- * - returns object method attached to it's object
+ * - returns object method attached to it's object context
+ * - returned function can be executed at later time
+ * ******************************************************************
  */
 let bindHelper = function (inputFun, context) {
   let args = arguments;

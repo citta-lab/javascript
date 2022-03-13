@@ -748,10 +748,10 @@ Reduce is javascript Higher-Order function, which takes `2` arguments and the sy
 ```javascript
  array.reduce(<callbackfunction>,<starting-value>); //step 1
 
- array.reudce((total, currentvalue) => { }, <starting-value>); // step II
+ array.reduce((total, currentvalue) => { }, <starting-value>); // step II
 // for the first call the accumulator value will be set to <stating-value>.
 
-array.reudce((total, currentvalue) => { return total + currentvalue.value }, <starting-value>); // step iii
+array.reduce((total, currentvalue) => { return total + currentvalue.value }, <starting-value>); // step iii
 // the return value will become total value
 ```
 
