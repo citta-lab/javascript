@@ -123,6 +123,10 @@ if(allText){
 ```
 Reference [here](https://dev.to/comscience/highlight-searched-text-on-a-page-with-just-javascript-17b3) or Another [here](https://stackoverflow.com/questions/8644428/how-to-highlight-text-using-javascript)
 
+
+
+# By Demo (JS-HTML) Examples 
+
 | No. | Questions | Related |
 |---- | --------- | --------- |
-|1  | [Higlight & Disable on click](https://github.com/citta-lab/javascript/blob/master/examples/bind-complete-example.js) | preventDefault , innerText, style.backgroundColor |
+|1  | [Higlight & Disable on click](https://github.com/citta-lab/javascript/blob/master/dom-js-examples/li-element-higlighter.md) | preventDefault , innerText, style.backgroundColor |
