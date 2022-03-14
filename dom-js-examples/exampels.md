@@ -55,7 +55,7 @@ let span = document.querySelector('span');
 span.removeAttribute('id');
 ```
 
-## Add/Remove/Toggle Class
+## Add/Remove/Toggle and get by Class
 ```HTML
 <span class='first second'> My Classes <span>
 ```
@@ -71,17 +71,57 @@ span.classList.remove('first'); // class="second"
 /** ADD/REMOVE dynamically based on whether we have four already */
 let span = document.querySelector('span');
 span.classList.toggle('four'); // class="first second four"
+
+/** get specific class named element */
+let className = document.getElementsByClassName('first second');
+console.log(className); //  My Classes
 ```
 
-## Query DOM
+## Query A DOM element 
 ```HTML
 <span class='first'> First <span>
 <span class='second'> Second <span>
+<div> Can you find me </div>
 ```
 ```js
 let span = document.querySelector('span');              /** gets all spans */
 let spanSecond = document.querySelector('span.second'); /** gets span with second class */
+
+let firstDiv = document.querySelector('body > div');    /** gets first div */
 ```
+
+## Query All DOM element 
+```HTML
+<span class='second'> Second <span>
+<div> Can you find me </div>
+<div> Can you find me </div>
+```
+```js
+let allDivs = document.querySelectorAll('div');
+console.log(allDivs)
+allDivs.forEach((div) => {
+  div.setAttribute('style', 'background-color:red')
+})
+```
+
+## Highlight Text 
+```HTML
+<p id='search'> 
+   Here i'm looking for First occurance of first 
+   so we can highlight and ignore second over First 
+</p>
+```
+```js
+let searchText = 'First';
+
+let allText = document.getElementById('search').innerHTML
+if(allText){
+  let matchText = new RegExp(searchText,"g");
+  let newText = allText.replace(matchText, `<mark>${searchText}</mark>`);
+  document.getElementById("search").innerHTML = newText;
+}
+```
+Reference [here](https://dev.to/comscience/highlight-searched-text-on-a-page-with-just-javascript-17b3) or Another [here](https://stackoverflow.com/questions/8644428/how-to-highlight-text-using-javascript)
 
 | No. | Questions | Related |
 |---- | --------- | --------- |
