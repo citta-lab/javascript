@@ -11,7 +11,7 @@
 |7  | [Currying with SUM example]()| currying, curry, `SUM(2)(3)` or `SUM(2)(3)(4)` or `SUM(2,3)(3,4)` examples |
 |8  | [How to flatten nested array](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-array-example.js)| flat, flatten, recursion, `[2,3,[4,5,6],[7,8]]` to `[2,3,4,5,6,7,8]` |
 |9  | [How to flatten nested object](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-object-example.js)| flat, flatten, recursion, `[{name:'bob', children: [{ name: 'rob'}]]` to `[{name:'bob'},{name:'rob'}]` |
-|10  | [How to flatten nested object with parent.child pattern](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-object-example.js)| flat, flatten, recursion, `{ a.b.c : 1, b.c: 2 } ` |
+|10  | [How to flatten nested object with parent.child pattern](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-object-ii-example.js)| flat, flatten, recursion, `{ a.b.c : 1, b.c: 2 } ` |
 |11  | [setTimeout Example, var and let example](https://github.com/citta-lab/javascript/blob/master/examples/setTimeout-event-loop-example.js)| block scope, let vs var, setTimeout in for loop |
 |12  | [Implement Map , Reduce, Filter](https://javascript.plainenglish.io/inner-workings-of-map-reduce-filter-f06ba87f2509)| array.map, array.filter, array.reduce, lamda functions |
 
