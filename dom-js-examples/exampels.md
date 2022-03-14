@@ -1,6 +1,6 @@
 # By Demo (JS-HTML) Examples 
 
-## Append to Body
+## 1. Append to Body
 ```js
 let body = document.body;
 let li = document.createElement('li')
@@ -8,13 +8,13 @@ li.innerText = 'New Child'
 body.append(li); /** <--- NEED to do this always */
 ```
 
-## Diff between appendChild vs append
+## 2. Diff between appendChild vs append
 ```js
 body.append('hi');
 body.appendChild('li'); /** <--- DOESNT WORK, only takes elements */
 ```
 
-## Diff innerText vs textContent 
+## 3. Diff innerText vs textContent 
 ```HTML
 <ul id="myList">
       <li>Bob</li>
@@ -28,7 +28,7 @@ body.appendChild('li'); /** <--- DOESNT WORK, only takes elements */
 console.log(body.textContent); /** reads hidden element */
 console.log(body.innerText); /** does not read hidden element and maintains the way it loosk on screen */
 ```
-## Update Attribute Value
+## 4. Update Attribute Value
 ```HTML
 <!-- update id 'change' to 'new-change' -->
 <span id='change'> Change/Add atrtribute <span>
@@ -45,7 +45,7 @@ let newIdValue = span.getAttribute('id');
 console.log(newIdValue);
 ```
 
-## Remove Attribute
+## 5. Remove Attribute
 ```HTML
 <!-- remove id 'change' from span -->
 <span id='change'> Change/Add atrtribute <span>
@@ -55,7 +55,7 @@ let span = document.querySelector('span');
 span.removeAttribute('id');
 ```
 
-## Add/Remove/Toggle and get by Class
+## 6. Add/Remove/Toggle and get by Class
 ```HTML
 <span class='first second'> My Classes <span>
 ```
@@ -77,7 +77,7 @@ let className = document.getElementsByClassName('first second');
 console.log(className); //  My Classes
 ```
 
-## Query A DOM element 
+## 7. Query A DOM element 
 ```HTML
 <span class='first'> First <span>
 <span class='second'> Second <span>
@@ -90,7 +90,7 @@ let spanSecond = document.querySelector('span.second'); /** gets span with secon
 let firstDiv = document.querySelector('body > div');    /** gets first div */
 ```
 
-## Query All DOM element 
+## 8. Query All DOM element 
 ```HTML
 <span class='second'> Second <span>
 <div> Can you find me </div>
@@ -104,7 +104,7 @@ allDivs.forEach((div) => {
 })
 ```
 
-## Highlight Text 
+## 9. Highlight Text 
 ```HTML
 <p id='search'> 
    Here i'm looking for First occurance of first 
