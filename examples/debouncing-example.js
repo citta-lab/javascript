@@ -1,10 +1,20 @@
 /**
+ * 
+ * Debouncing ( only care about final state )
+ * 
  * Write a function to debounce another function. Repeated invocations within a certain time window
  * will be grouped together so that the underlying function is only invoked once at the end.
  *
  * Example: If we need to take some action upon scrolling on the UI, instead of making update or
  * state changes on every scoll event we can apply debounce to wait for "x" amount of time and
  * execute the function. This is great performance benifit and loaddash has debounce functionality.
+ *
+ * - Use Debouncing in SEARCH BOX. so if the user changes his/her mind or keep adding chars we
+ * can debounce and return the last
+ * - Don’t make any Axios requests until the user stops typing.
+ * - Don’t make any changes until user stop dragging window
+ *
+ * https://medium.com/walkme-engineering/debounce-and-throttle-in-real-life-scenarios-1cc7e2e38c68
  *
  * let i = 0;
  * function yourFn() {

@@ -10,3 +10,11 @@
 |6  | [Currying with SUM example]()| currying, curry, `SUM(2)(3)` or `SUM(2)(3)(4)` or `SUM(2,3)(3,4)` examples |
 |7  | [How to flatten nested array](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-array-example.js)| flat, flatten, recursion, `[2,3,[4,5,6],[7,8]]` to `[2,3,4,5,6,7,8]` |
 |8  | [How to flatten nested object](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-object-example.js)| flat, flatten, recursion, `[{name:'bob', children: [{ name: 'rob'}]]` to `[{name:'bob'},{name:'rob'}]` |
+|9  | [setTimeout Example, var and let example](https://github.com/citta-lab/javascript/blob/master/examples/flatten-nested-object-example.js)| block scope, let vs var, setTimeout in for loop |
+
+
+
+
+
+Reference:
+1. https://github.com/jadjoubran/javascript-blog

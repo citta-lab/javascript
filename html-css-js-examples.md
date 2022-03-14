@@ -8,6 +8,8 @@ might ask to build during the interview setting.
 3. [Create Accordion without javascript](#create-accordion-without-javascript)
 4. [Spinning wheel demo](#spinning-wheel-demo)
 4. [Dialog box and a Modal](#dialog-box-and-a-modal)
+5. [Todo App](https://freshman.tech/todo-list/)
+6. [Nested Comment and Reply](https://github.com/savinuvijay/nested-comments)
 
 
 1. ### Build Analogue Clock
