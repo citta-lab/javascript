@@ -1,4 +1,4 @@
-# By Demo (JS-HTML) Examples 
+# By Examples (JS-HTML)
 
 ## 1. Append to Body
 ```js
