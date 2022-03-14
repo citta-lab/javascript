@@ -1,3 +1,19 @@
+# Highlight <li> element 
+
+## HTML
+```html
+<ul id="myList">
+    <li>Bob</li>
+    <li>Rob</li>
+    <li>Donald</li>
+    <li>Ron</li>
+</ul>
+```
+
+## JS
+- Highlight upon clicking <li>
+- Disable actions on particular element 
+```js
 import "./styles.css";
 
 let parent = document.getElementById("myList");
@@ -14,3 +30,6 @@ parent.addEventListener("click", function (event) {
     }
   }
 });
+```
+
+[CodeSandbox](https://codesandbox.io/s/hardcore-chihiro-isf02c?file=/index.html:199-304)

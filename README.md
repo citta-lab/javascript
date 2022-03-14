@@ -1206,6 +1206,10 @@ parent.addEventListner('click', function(event){
   if(target.matches('li')){
     target.style.backgroundColor = 'yellow';
   }
+
+  if(target.matches('li').value === 'Donald'){
+    target.style.backgroundColor = 'red';
+  }
 });
 
 /**

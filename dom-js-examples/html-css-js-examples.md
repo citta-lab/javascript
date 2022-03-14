@@ -10,6 +10,8 @@ might ask to build during the interview setting.
 4. [Dialog box and a Modal](#dialog-box-and-a-modal)
 5. [Todo App](https://freshman.tech/todo-list/)
 6. [Nested Comment and Reply](https://github.com/savinuvijay/nested-comments)
+7. [Drag and Drop Example](https://codesandbox.io/s/zj0bk?file=/src/index.js)
+8. [Todo App with completed/uncompleted](https://codesandbox.io/s/sjm6l)
 
 
 1. ### Build Analogue Clock
