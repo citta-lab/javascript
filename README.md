@@ -1570,3 +1570,4 @@ Because at first typeof(object); it will return string representation of the typ
 ### Reference
 1. Inheritance : https://codeburst.io/javascript-inheritance-25fe61ab9f85
 2. Event Loop and How Callback works : https://www.youtube.com/watch?v=8aGhZQkoFbQ
+3. LinkedIn JS Assesment : https://github.com/Adrinlol/linkedin-javascript-assessment
