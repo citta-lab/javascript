@@ -1,0 +1,121 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.13.12/babel.min.js"></script>
+      <style>
+      body {
+        color: #ffffff;
+        background-color: #1e1e1e;
+      }
+      p {
+        display: inline-block;
+        border: 1px solid #ffffff;
+        font-size: 20px;
+        padding: 10px;
+      }
+      #parking-lot {
+        padding: 10px;
+      }
+      .parking-spot {
+        height: 200px;
+        width: 100px;
+
+        border-right: 4px solid #ffffff;
+        border-left: 4px solid #ffffff;
+        
+        margin: 15px;
+      }
+      
+      .car {
+        width: auto;
+        height: 100px;
+        background-repeat: no-repeat;
+        color: #fff;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96.82 144.48'%3e%3cdefs%3e%3cstyle%3e.cls-1%7bfill:%23fff;%7d%3c/style%3e%3c/defs%3e%3ctitle%3eAsset 4%3c/title%3e%3cg id='Layer_2' data-name='Layer 2'%3e%3cg id='Objects'%3e%3cpath class='cls-1' d='M0,37.14A3.46,3.46,0,0,0,3.46,40.6h6v90.05a13.83,13.83,0,0,0,13.83,13.83H73A13.83,13.83,0,0,0,86.8,130.65V40.59h6.56a3.46,3.46,0,0,0,0-6.92H86.94l-.14,0V13.83A13.83,13.83,0,0,0,73,0H23.31A13.83,13.83,0,0,0,9.48,13.83V33.68h-6A3.46,3.46,0,0,0,0,37.14Zm18.28,0S24.21,31,48.29,31s30,6.17,30,6.17L71.38,60.85s-24.7-7.41-45.45,0Zm7.9,64H72.12l6.18,14.58H19.51ZM84.44,16S68.7,17.89,64.82,1.71c0,0,13-.74,15.67,2.65S84.44,8.4,84.44,16ZM77.06,95.43V57.15l6.42-15.31v61Zm-58.78,36.8h60v4h-60ZM12.8,41.84l6.42,15.31V95.43l-6.42,7.41Zm-.53-26.21c0-7.21,1.2-7.84,3.78-11.08S31,2,31,2C27.32,17.49,12.27,15.63,12.27,15.63Z'/%3e%3c/g%3e%3c/g%3e%3c/svg%3e");
+      
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/jsx">
+    const pricePerDay = 20;
+
+      const parkingLot = [
+        { 
+          id: 1,
+          isParked: true
+        }, 
+        {
+          id: 2,
+          isParked: true
+        },
+        {
+          id: 3
+        },
+        {
+          id: 4
+        },
+        {
+          id: 5,
+          isParked: true
+        }
+      ];
+
+  // Tasks:
+  // 1. Render a parking spot for each spot inside parkingLot array
+  // 2. Render a car in each parking spot that has 'isParked' set to true
+  // 3. Compute total revenue from lot for the day and display it
+  // 4. Add a click handler to each parking spot that will park or unpark a car depending on the starting state, the total revenue should also reflect any changes
+    
+
+      const App = () => {
+        
+        let revenue = 0;
+        let [state, setState] = React.useState(parkingLot);
+        
+        
+        
+        let handleClick = (id)=> {
+          console.log('click : '+id);
+          setState((prev) => prev.filter((parking) => parking.id !== id))
+        }
+        
+        let list = state.map((park) => {
+            
+          let isParked = park.isParked
+          ? <div class='car' key={park.id}></div>
+          : null;
+          
+          revenue += park.isParked ? pricePerDay : 0;
+          
+          
+            return (
+              <div class="parking-spot" onClick={() => handleClick(park.id)}>
+                {isParked}
+              </div>
+              )
+        });
+        
+        
+        return (
+          <>
+            <div id="parking-lot">
+              {list}
+            </div>
+            <p>Total Revenue: $<span id="total-price">{revenue}</span></p>
+          </>
+      )};
+    
+      ReactDOM.render(
+        <App />,
+        document.getElementById('root')
+      );
+
+      
+
+    </script>
+  </body>
+</html>
