@@ -12,6 +12,11 @@ might ask to build during the interview setting.
 6. [Nested Comment and Reply](https://github.com/savinuvijay/nested-comments)
 7. [Drag and Drop Example](https://codesandbox.io/s/zj0bk?file=/src/index.js)
 8. [Todo App with completed/uncompleted](https://codesandbox.io/s/sjm6l)
+9. [Tic Tac Toe](https://codepen.io/AndyMilneDotIO/pen/bGrwRyZ)
+
+## React Examples 
+9. [Todo List](https://codepen.io/termyanen/pen/vMWoox)
+11. [Tic Tac Toe](https://codepen.io/meeramenon07/pen/qBNBLRy)
 
 
 1. ### Build Analogue Clock
