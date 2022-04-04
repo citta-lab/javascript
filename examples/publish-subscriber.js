@@ -17,6 +17,11 @@
  * publisher and subscriber.
  * 
  * ref:https://jsmanifest.com/the-publish-subscribe-pattern-in-javascript/f
+ * 
+ * 
+ * 
+ * Observer Pattern : https://www.digitalocean.com/community/conceptual_articles/observer-design-pattern-in-javascript
+ * 
  */
 
 /** Factory method which will define publisher/subscriber */
