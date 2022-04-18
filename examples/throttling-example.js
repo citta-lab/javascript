@@ -16,6 +16,8 @@ ignored. Example: If we call function at every second it will be ignored until t
 Debounce:
 Here function will only be executed since the last time the function is executed plus the timeInterval. This is 
 slight difference between fixed timeInterval
+
+ex: https://github.com/citta-lab/javascript/blob/master/examples/debouncing-example.js
 */
 function throttle(inputFn, timeInterval) {
   let timeout;
