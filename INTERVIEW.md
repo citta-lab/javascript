@@ -84,7 +84,27 @@ By doing `String.prototype.repeatify || function (arg)` or condition we are "SHI
 javacript function which will prevent overriding the default.
 
 
+# 5. Closure
+## 5.1 Fix setTimeout to print i
+count should be incremented and matched with i in for loop until i < 4
+```js
+var count = 0; 
+for ( var i = 0; i < 4; i++ ) { 
+  setTimeout(function(){ 
+    console.log(i === count++); // returns false
+  }, i * 200); 
+}
+```
+Answer: Making use of anonymous function and closure
+```js
+var count = 0; 
+for ( var i = 0; i < 4; i++ ) (function(i){ 
+  setTimeout(function(){ 
+    console.log(i === count++); // returns true
+  }, i * 200); 
+})(i)
 
+```
 
 # Reference:
 
