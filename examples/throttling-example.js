@@ -8,6 +8,15 @@
  * https://medium.com/walkme-engineering/debounce-and-throttle-in-real-life-scenarios-1cc7e2e38c68
  */
 
+/** 
+Throttling: 
+Functions wil only get called on specified interval of time, If anything is called between the interval will be
+ignored. Example: If we call function at every second it will be ignored until timeInterval is reached.
+
+Debounce:
+Here function will only be executed since the last time the function is executed plus the timeInterval. This is 
+slight difference between fixed timeInterval
+*/
 function throttle(inputFn, timeInterval) {
   let timeout;
 
