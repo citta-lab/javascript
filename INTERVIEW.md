@@ -34,12 +34,27 @@ console.log(sum(2)(3)(4)());
 # 2. Implement SUM(x)(y)(z) and SUM(x,y,z) in same function
 
 
+# 3. Implement SUM(2)(3) and SUM(2,3) in same function
+```js
+function sum(a, b){
+
+  if( b !== undefined ){
+    return a+b;
+  }
+
+  return function (b){
+    return a+b;
+  }
+}
+
+console.log(" SUM "+sum(2)(3));
+console.log(" SUM "+sum(2,3));
+```
 
 
+# 4. Private Variable 
 
-# 3. Private Variable 
-
-## 3.1 Create private variable 
+## 4.1 Create private variable 
 ```js
 function getPrivateVariable(){
     let private = 'private variable value';
@@ -52,9 +67,9 @@ let value = getPrivateVariable();
 console.log(value());
 ```
 
-# 4. Create 'Native' methods
+# 5. Create 'Native' methods
 
-## 4.1 Implement "repeatify" on String
+## 5.1 Implement "repeatify" on String
 
 In this example, we have asked to implement "repeatify" on custom String type so anyone can 
 leverage that. Example: we have inbuilt repeat works on string like "hello".repeat(3) gives
@@ -84,8 +99,8 @@ By doing `String.prototype.repeatify || function (arg)` or condition we are "SHI
 javacript function which will prevent overriding the default.
 
 
-# 5. Closure
-## 5.1 Fix setTimeout to print i
+# 6. Closure
+## 6.1 Fix setTimeout to keep i & count the same
 count should be incremented and matched with i in for loop until i < 4
 ```js
 var count = 0; 
