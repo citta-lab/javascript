@@ -2,6 +2,19 @@
 
 Great repo with details https://github.com/ryanmcdermott/code-review-tips 
 
+Code reviews should look at:
+
+1. **Design:** Is the code well-designed and appropriate for your system?
+2. ***Functionality:** Does the code behave as the author likely intended? Is the way the code behaves good for its users?
+3. **Complexity:** Could the code be made simpler? Would another developer be able to easily understand and use this code when they come across it in the future?
+4. **Tests:** Does the code have correct and well-designed automated tests?
+5. **Naming:** Did the developer choose clear names for variables, classes, methods, etc.?
+6. **Comments:** Are the comments clear and useful?
+7. **Style:** Does the code follow our style guides?
+8. **Documentation:** Did the developer also update relevant documentation?
+
+ref: https://google.github.io/eng-practices/review/ 
+
 ## 1. Use Promise 
 ```js
 fetch('https://example.com/profile/avatar', {
