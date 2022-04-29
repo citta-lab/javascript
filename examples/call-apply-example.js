@@ -54,3 +54,21 @@ function getAge(currentYear) {
 
 getAge.call(Person, 2022); // 24
 getAge.apply(Person, [2021]); // 23
+
+/**
+ * ******************************************************************
+ * Example 3:
+ * Using apply on inbuilt method to find the
+ * min and max values
+ * ******************************************************************
+ */
+
+function findValue(arr, fn) {
+  return fn.apply(Math, arr);
+}
+
+console.log(findValue([0, 1, 2, 3], Math.min)); // 0
+console.log(findValue([0, 1, 2, 3], Math.max)); // 3
+
+
+
